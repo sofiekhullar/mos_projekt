@@ -12,15 +12,15 @@ V(1)=V0;
 deltat=0.2;
 pos(1) = 1000; % Start height
 
+t=(0:N-1)*deltat;
+
 for i=1:N-1
 V(i+1)=V(i)+deltat*(g-(k/m)*V(i)^2); %c calculate the velocity
-pos(i+1) = pos(i) + V(i+1); % calculate the position
+pos(i+1) = pos(i) + V(i)*t(i+1); % calculate the position
 end
-t=(0:N-1)*deltat;
-vterminal=sqrt(g*m/k); % Terminal velocity
 
 
-plot(t,pos,t,ones(1,N)*vterminal);
+plot(t,pos);
 xlabel('time in sec');
 ylabel('Position m');
-legend ('Euler Method', 'Analytical velocity','location','south');
+legend ('Euler Method','location','south');
