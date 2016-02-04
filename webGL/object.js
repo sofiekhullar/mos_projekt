@@ -1,14 +1,17 @@
 			
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+			var clock = new THREE.Clock();
+    		var time = 0;
 
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 			
-			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+			var geometry = new THREE.BoxGeometry( 1, 0.1, 0.1 );
 			var material = new THREE.MeshBasicMaterial( { color: 0xFF33FF } );
 			var cube = new THREE.Mesh( geometry, material );
+			cube.position.y = 3;
 			scene.add( cube );
 
 			camera.position.z = 5;
@@ -16,13 +19,24 @@
 			var N = 100;
 			var posY = calculate();  
 			var t = createTime(N);   // FULKOD?!?!?
+			var counter = 0;
 
 			var render = function () {
 				requestAnimationFrame( render );
 
-				cube.rotation.x += 0.01;
-				cube.rotation.y += 0.01;
+					//var delta = clock.getElapsedTime();
+					//var roundedDelta = Math.round(delta * 10)/10;
+					//console.log(roundedDelta);
+					//if(roundedDelta%0.2 == 0)
+					//cube.rotation.y += 0.7;
+					
+					counter++;
 
+					var delta = clock.getDelta();
+					console.log(delta);
+
+					cube.position.y -= posY[counter] * 0.0002;
+				
 				renderer.render(scene, camera);
 			};
 
@@ -32,7 +46,7 @@
 	function calculate () {
 
 		var V0 = 0; // initial speed
-		var m = 0.005; // mass in kg
+		var m = 0.00005; // mass in kg
 		var g = 9.81; // gravity acceleration kg/m3
 		var rho = 1.2; // Air density
 		var Amax = 0.0044; // Object maxarea
@@ -58,6 +72,7 @@
 			Arand = Amin;
 		}
 
+		Arand = Amax; // FULKOD
 		var k = 0.5*cw*rho*Arand; //Coefficient
 		 
 		   
