@@ -8,20 +8,17 @@ var cw = 0.4; // Numerical drag coefficient
 var N = 100; // Time step
 var V = new Array(N); // Speed
 var pos = new Array(N); //Height
-V[1]=V0; //Start velocity
+V[0]=V0; //Start velocity
 var deltat=0.2;
-pos[1] = 10; // Start height
+pos[0] = 10; // Start height
 
-var t = new Uint8Array(N); //Tide 
-
-for(i = 0; i < N-1; i++)
+var t = new Array(N); //Tide 
+for(i = 0; i < N; i++)
 {
-	t[i] = i;
+	t[i] = i *deltat;
 }
-var t = t*deltat;
 
 var Arand = (Math.random() * Amax + Amin); // Random nr mellan max och min
-
 
 if( Arand < Amax && Arand > Amax/2) //Horrisontellt
 {
@@ -31,11 +28,17 @@ else   //Vertikalt
 {
 	Arand = Amin;
 }
-  
+
 var k = 0.5*cw*rho*Arand; //Coefficient
+ 
    
-for(i=0; i < N-1; i++)
+for(i=0; i < N; i++)
 {
 	V[i+1] = V[i] + deltat * (g-(k/m)*Math.pow(V[i], 2));
 	pos[i+1] = pos[i] + V[i]*t[i+1];
 }
+ console.log(pos);
+
+
+ 
+
