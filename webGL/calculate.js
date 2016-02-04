@@ -1,3 +1,5 @@
+function calculate () {
+
 var V0 = 0; // initial speed
 var m = 0.005; // mass in kg
 var g = 9.81; // gravity acceleration kg/m3
@@ -7,10 +9,10 @@ var Amin = 0.0001; // Object minarea
 var cw = 0.4; // Numerical drag coefficient
 var N = 100; // Time step
 var V = new Array(N); // Speed
-var pos = new Array(N); //Height
+var posY = new Array(N); //Height
 V[0]=V0; //Start velocity
 var deltat=0.2;
-pos[0] = 10; // Start height
+posY[0] = 10; // Start height
 
 var t = new Array(N); //Tide 
 for(i = 0; i < N; i++)
@@ -35,10 +37,14 @@ var k = 0.5*cw*rho*Arand; //Coefficient
 for(i=0; i < N; i++)
 {
 	V[i+1] = V[i] + deltat * (g-(k/m)*Math.pow(V[i], 2));
-	pos[i+1] = pos[i] + V[i]*t[i+1];
+	posY[i+1] = posY[i] + V[i]*t[i+1];
 }
- console.log(pos);
+ console.log(posY);
 
+
+return posY;
+
+}
 
  
 
