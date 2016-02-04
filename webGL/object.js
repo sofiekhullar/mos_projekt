@@ -3,24 +3,30 @@
 			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 			var clock = new THREE.Clock();
     		var time = 0;
+    		var fallingHor = true;
+
+    		var N = 100;
+			var posY = calculate();  
+			var t = createTime(N);   // FULKOD?!?!?
+			var counter = 0;
 
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 			
-			var geometry = new THREE.BoxGeometry( 1, 0.1, 0.1 );
+			var geometry = new THREE.BoxGeometry( 1, 0.1, 1 );
 			var material = new THREE.MeshBasicMaterial( { color: 0xFF33FF } );
 			var cube = new THREE.Mesh( geometry, material );
 			cube.position.y = 3;
+			
+			if(fallingHor){
+				cube.rotation.x = Math.PI /2;
+			}
 			scene.add( cube );
 
 			camera.position.z = 5;
 
-			var N = 100;
-			var posY = calculate();  
-			var t = createTime(N);   // FULKOD?!?!?
-			var counter = 0;
-
+			
 			var render = function () {
 				requestAnimationFrame( render );
 
@@ -29,14 +35,14 @@
 					//console.log(roundedDelta);
 					//if(roundedDelta%0.2 == 0)
 					//cube.rotation.y += 0.7;
-					
-					counter++;
 
-					var delta = clock.getDelta();
-					console.log(delta);
+				counter++;
 
-					cube.position.y -= posY[counter] * 0.0002;
-				
+				var delta = clock.getDelta();
+				console.log(delta);
+
+				cube.position.y -= posY[counter] * 0.0002;
+				console.log(counter);
 				renderer.render(scene, camera);
 			};
 
@@ -47,7 +53,7 @@
 
 		var V0 = 0; // initial speed
 		var m = 0.00005; // mass in kg
-		var g = 9.81; // gravity acceleration kg/m3
+		var g = 9.82; // gravity acceleration kg/m3
 		var rho = 1.2; // Air density
 		var Amax = 0.0044; // Object maxarea
 		var Amin = 0.0001; // Object minarea
@@ -65,14 +71,17 @@
 
 		if( Arand < Amax && Arand > Amax/2) //Horrisontellt
 		{
-			Arand = Amax;
+			Arand = Amin;
+			fallingHor = true;
 		}   
 		else   //Vertikalt
 		{
-			Arand = Amin;
+			Arand = Amax;
+		 	fallingHor = false;
 		}
 
-		Arand = Amax; // FULKOD
+		Arand = Amin; // FULKOD
+
 		var k = 0.5*cw*rho*Arand; //Coefficient
 		 
 		   
