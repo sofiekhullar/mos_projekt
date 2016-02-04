@@ -15,7 +15,7 @@
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
-
+			
 			var geometry = new THREE.BoxGeometry( 1, 0.05, 0.05 );
 			var material = new THREE.MeshBasicMaterial( { color: 0xFF33FF } );
 			var cube = new THREE.Mesh( geometry, material );
