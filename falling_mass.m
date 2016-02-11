@@ -57,5 +57,5 @@ end
 
 plot(t,pos);
 xlabel('time in sec');
-ylabel('Position m');
+ylabel('Position in m');
 legend ('Euler Method','location','south');
