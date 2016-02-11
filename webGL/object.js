@@ -27,6 +27,7 @@
 			var counter = 0;
 			var glitter = [];
 			var max_of_glitter = 5;
+			var time = 0;
 
 			// add floor
 	      	var planeGeo = new THREE.PlaneGeometry(100, 100, 10, 10);
@@ -76,12 +77,10 @@
 					//console.log(roundedDelta);
 					//if(roundedDelta%0.2 == 0)
 					//cube.rotation.y += 0.7;
+					//var delta = clock.getDelta();
+					//console.log(delta);
 
 				counter++;
-
-				var delta = clock.getDelta();
-				console.log(delta);
-
 				cube.position.y -= posY[counter] * 0.0002;
 				console.log(counter);
 				renderer.render(scene, camera);
@@ -89,7 +88,28 @@
 
 			render();
 
+function update_time (tupp) {
+		dt = t-time;
+		time = t;
+		update_pos(dt)
+		console.log("FORLOOP")
+		renderer.render(scene, camera);
+		window.requestAnimationFrame(animate, renderer.domElement);
+	}
+	
+	 update_time(new Date().getTime());
 
+	function update_pos () {
+	for (var i = 0; i < max_of_glitter; i++) {
+		box[i].y += 0.05;
+
+		//balls[i].obj.position.set( balls[i].x , balls[i].y , balls[i].z );
+		}; 
+	}
+
+
+	
+	
 	function calculate () {
 
 		const V0 = 0; // initial speed
@@ -147,6 +167,9 @@
 		return t;
 	}
 
+function render() {
+				renderer.render( scene, camera );
+			}
 
 
 
