@@ -68,7 +68,7 @@
 			}
 			scene.add( cube );
 
-			
+			console.log(posY)
 			var render = function () {
 				requestAnimationFrame( render );
 
@@ -82,7 +82,7 @@
 
 				counter++;
 				cube.position.y -= posY[counter] * 0.0002;
-				console.log(counter);
+				//console.log(counter);
 				renderer.render(scene, camera);
 			};
 
@@ -107,54 +107,53 @@ function update_time (tupp) {
 		}; 
 	}
 
-
-	
-	
 	function calculate () {
 
-		const V0 = 0; // initial speed
-		const m = 0.00005; // mass in kg
-		const g = 9.82; // gravity acceleration kg/m3
-		const rho = 1.2; // Air density
-		const Amax = 0.0044; // Object maxarea
-		const Amin = 0.0001; // Object minarea
-		const cw = 0.4; // Numerical drag coefficient
-		const deltat=0.2;
-		const N = 200; // Time step
-		var V = new Array(N); // Speed
-		var posY = new Array(N); //Height
-		V[0]=V0; //Start velocity
-		posY[0] = 10; // Start height
+	var V0 = 0; // initial speed
+	var m = 0.005; // mass in kg
+	var g = 9.81; // gravity acceleration kg/m3
+	var rho = 1.2; // Air density
+	var Amax = 0.0044; // Object maxarea
+	var Amin = 0.0001; // Object minarea
+	var cw = 0.4; // Numerical drag coefficient
+	var N = 100; // Time step
+	var V = new Array(N); // Speed
+	var posY = new Array(N); //Height
+	V[0]=V0; //Start velocity
+	var deltat=0.2;
+	posY[0] = 10; // Start height
 
-		var t = createTime(N);
+	var t = new Array(N); //Tide 
+	for(i = 0; i < N; i++)
+	{
+		t[i] = i;
+	}
 
-		var Arand = (Math.random() * Amax + Amin); // Random nr mellan max och min
+	var Arand = (Math.random() * Amax + Amin); // Random nr mellan max och min
 
-		if( Arand < Amax && Arand > Amax/2) //Horrisontellt
-		{
-			Arand = Amin;
-			fallingHor = true;
-		}   
-		else   //Vertikalt
-		{
-			Arand = Amax;
-		 	fallingHor = false;
-		}
+	if( Arand < Amax && Arand > Amax/2) //Horrisontellt
+	{
+		Arand = Amax;
+	}   
+	else   //Vertikalt
+	{
+		Arand = Amin;
+	}
 
-		Arand = Amin; // FULKOD
+	var k = 0.5*cw*rho*Arand; //Coefficient
+	 
+	   
+	for(i=0; i < N; i++)
+	{
+		V[i+1] = V[i] + deltat * (g-(k/m)*Math.pow(V[i], 2));
+		posY[i+1] = posY[i] + V[i]*t[i+1];
+	}
 
-		var k = 0.5*cw*rho*Arand; //Coefficient
-		 
-		   
-		for(i=0; i < N; i++)
-		{
-			V[i+1] = V[i] + deltat * (g-(k/m)*Math.pow(V[i], 2));
-			posY[i+1] = posY[i] + V[i]*t[i+1];
-		}
-
-		return posY;
+	return posY;
 
 	}
+
+ 
 
 	function createTime (N) {
 		var deltat=0.2;
