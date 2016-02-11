@@ -1,6 +1,6 @@
 			
 			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+			var camera = new THREE.PerspectiveCamera( 100, window.innerWidth/window.innerHeight, 0.1, 1000 );
 			var clock = new THREE.Clock();
     		var time = 0;
     		var fallingHor = true;
@@ -14,17 +14,49 @@
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 			
-			var geometry = new THREE.BoxGeometry( 1, 0.1, 1 );
-			var material = new THREE.MeshBasicMaterial( { color: 0xFF33FF } );
+			var geometry = new THREE.BoxGeometry( 20, 1, 20 );
+			var material = new THREE.MeshPhongMaterial( { color: 0x545454, specular: 0xffffff, shininess: 100, shading: THREE.FlatShading } );
 			var cube = new THREE.Mesh( geometry, material );
-			cube.position.y = 3;
 			
+			cube.position.x = 0;
+			cube.position.y = 100;
+			//cube.position.z = 50;
+
+
 			if(fallingHor){
 				cube.rotation.x = Math.PI /2;
 			}
 			scene.add( cube );
 
-			camera.position.z = 5;
+			//camera.position.z = 5;
+
+			camera.position.x = 0;
+       		camera.position.y = 0;
+       		camera.position.z = 100;
+
+			//Gör scenen
+
+			//Lägga till ljus
+			var light = new THREE.SpotLight(0xFFFFFF, 5); //Vitt ljus och intensitet (jättestarkt!).
+	      	light.position.set( 50, 100, 50 );
+	      	scene.add(light);
+	      	light.castShadow = true;
+
+			//Lägg till golv
+	      	var planeGeo = new THREE.PlaneGeometry(100, 100, 10, 10);
+			var planeMat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+			var plane = new THREE.Mesh(planeGeo, planeMat);		
+			
+			plane.rotation.x = -Math.PI/2;
+			plane.position.y = -50;
+
+			//Add wireframe for box  
+			var wire = new THREE.Mesh(new THREE.CubeGeometry(100, 100, 100), new THREE.MeshBasicMaterial({wireframe: true, color: 'blue'}));      		
+      		scene.add(wire);
+			plane.receiveShadow = true;
+			scene.add(plane);
+
+
 
 			
 			var render = function () {
@@ -59,7 +91,7 @@
 		var Amin = 0.0001; // Object minarea
 		var cw = 0.4; // Numerical drag coefficient
 		var deltat=0.2;
-		var N = 100; // Time step
+		var N = 200; // Time step
 		var V = new Array(N); // Speed
 		var posY = new Array(N); //Height
 		V[0]=V0; //Start velocity
@@ -105,8 +137,6 @@
 		}
 		return t;
 	}
-
- 
 
 
 
