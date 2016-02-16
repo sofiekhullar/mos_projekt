@@ -17,6 +17,8 @@
        		var time = 0;
        		const N = 200; // Time step
        		var diff = calc_step();
+       		console.log(diff);
+
 
        		// add floor
 	      	var planeGeo = new THREE.PlaneGeometry(100, 100, 10, 10);
@@ -32,16 +34,26 @@
 			plane.receiveShadow = true;
 			scene.add(plane);
 
+			 // add light
+			var light = new THREE.SpotLight(0xFFFFFF, 5); //Vitt ljus och intensitet (jättestarkt!).
+	      	light.position.set( 50, 100, 50 );
+	      	scene.add(light);
+	      	light.castShadow = true;
+
 			//Create boxes and store in array
  			var geo = new THREE.BoxGeometry( 10, 1, 10 );
  			   for (var i = 0; i < max_of_glitter; i++) {
  				    var box = {};
- 				    var mat = new THREE.MeshBasicMaterial({color: Math.floor(Math.random() * 0x1000000)});
+ 				    var mat = new THREE.MeshPhongMaterial({color: Math.floor(Math.random() * 0x1000000)});
  				    box.obj = new THREE.Mesh( geo, mat);
  				    
- 				    box.x = 100*Math.random();
+ 				    box.x = Math.floor((Math.random() * 99) - 49);
 					box.y = 100;
 					box.z = 0;
+
+					box.dx = Math.random();  
+			        box.dy = 5;
+			        box.dz = Math.random();
 
  				    box.obj.position.set( box.x, box.y, box.z);
 			        scene.add(box.obj);
@@ -62,20 +74,36 @@
 			 // 
 			 update_scene(new Date().getTime());
 
+			var count = 0;
+			var upp = 0;
+
 			function update_pos () {
 			for (var i = 0; i < max_of_glitter; i++) {
 				glitter[i].y -= 0.9;
-
+				//glitter[i].x = glitter[i].x  - glitter[i].dx;   
+				//glitter[i].y = glitter[i].y  - glitter[i].dy;
+				//glitter[i].z = glitter[i].z  - glitter[i].dz;
+			
+				glitter[i].y = glitter[i].y + diff[i]*0.1;
+				
 				check_floor(glitter[i]);
-				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z );
+				
+				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z);
 				}; 
 			}
 
 			function calc_step () {
 				var diff = [];
-				for(i=0; i < N-2; i++)
+				for(i=0; i < N; i++)
 				{
-					diff[i] = Ypos[i] - Ypos[i+1];
+					if(i < 50)
+					{
+						diff[i] = Ypos[i] - Ypos[i+1];
+					}
+					else
+					{
+						diff[i] = diff[49];
+					}
 				}
 				return diff;
 			}
