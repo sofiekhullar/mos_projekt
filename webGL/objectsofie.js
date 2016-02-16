@@ -43,7 +43,10 @@
        		// add floor
 	      	var planeGeo = new THREE.PlaneGeometry(100, 100, 10, 10);
 			var planeMat = new THREE.MeshLambertMaterial({color: 0xFFFFFF });
-			var plane = new THREE.Mesh(planeGeo, planeMat);		
+			var plane = new THREE.Mesh(planeGeo, planeMat);	
+
+			renderer.shadowMapEnabled = true;
+			plane.receiveShadow = true;	
 			
 			plane.rotation.x = -Math.PI/2;
 			plane.position.y = -50;
@@ -59,6 +62,34 @@
 	      	light.position.set( 50, 100, 50 );
 	      	scene.add(light);
 	      	light.castShadow = true;
+
+	      	// add light from the cameras perspective
+			var light2 = new THREE.SpotLight(0xFFFFFF, 5); //Vitt ljus och intensitet (jättestarkt!).
+	      	light2.position.set( 0,0,100 ); //Från kamerans perspektiv
+	      	scene.add(light2);
+	      	light2.castShadow = true;
+
+	      	
+
+	      	//Background:
+
+	
+		   // plane
+		   // var plane = new THREE.Mesh(new THREE.PlaneGeometry(200, 200),img);
+		   // plane.overdraw = true;
+		   // scene.add(plane);
+
+			//The wall
+			var planeGeo2 = new THREE.PlaneGeometry(100, 100);
+			var planeMat2 = new THREE.MeshLambertMaterial({color: 0x545454});
+			var plane2 = new THREE.Mesh(planeGeo2 , planeMat2);
+			plane2.overdraw = true;
+			scene.add(plane2);
+
+			//plane2.rotation.x = -Math.PI/2;
+			plane2.position.y = 0;
+			plane2.position.z = -50;
+
 
 			//Create boxes and store in array
  			var geo = new THREE.BoxGeometry( 5, 0.5, 5 );
