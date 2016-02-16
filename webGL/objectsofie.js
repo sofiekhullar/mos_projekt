@@ -17,20 +17,6 @@
 
 			animate();
 
-			function onWindowResize() {
-
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
-
-				controls.handleResize();
-
-				render();
-
-			}
-
-	
        		// Variabler
        		var Ypos = calculate();  //Call func calc and it returns ypos
        		var max_of_glitter = 50;
@@ -45,7 +31,7 @@
 			var planeMat = new THREE.MeshLambertMaterial({color: 0xFFFFFF });
 			var plane = new THREE.Mesh(planeGeo, planeMat);	
 
-			renderer.shadowMapEnabled = true;
+			renderer.shadowMap.enabled = true;
 			plane.receiveShadow = true;	
 			
 			plane.rotation.x = -Math.PI/2;
@@ -62,18 +48,15 @@
 	      	light.position.set( 50, 100, 50 );
 	      	scene.add(light);
 	      	light.castShadow = true;
+	      	light.shadowDarkness = 0.7;
 
 	      	// add light from the cameras perspective
-			var light2 = new THREE.SpotLight(0xFFFFFF, 5); //Vitt ljus och intensitet (jättestarkt!).
+			var light2 = new THREE.SpotLight(0xFFFFFF, 2); //Vitt ljus och intensitet (jättestarkt!).
 	      	light2.position.set( 0,0,100 ); //Från kamerans perspektiv
 	      	scene.add(light2);
 	      	light2.castShadow = true;
-
 	      	
-
 	      	//Background:
-
-	
 		   // plane
 		   // var plane = new THREE.Mesh(new THREE.PlaneGeometry(200, 200),img);
 		   // plane.overdraw = true;
@@ -90,12 +73,18 @@
 			plane2.position.y = 0;
 			plane2.position.z = -50;
 
+			console.log(color);
 
+			//color: Math.floor(Math.random() * 0x1000000)
 			//Create boxes and store in array
  			var geo = new THREE.BoxGeometry( 5, 0.5, 5 );
  			   for (var i = 0; i < max_of_glitter; i++) {
+ 				    var color = Please.make_color({	// slumpar grå färger
+							greyscale: true, //for the brits
+							grayscale: true  //for the yanks
+							});
  				    var box = {};
- 				    var mat = new THREE.MeshPhongMaterial({color: Math.floor(Math.random() * 0x1000000)});
+ 				    var mat = new THREE.MeshPhongMaterial({color});
  				    box.obj = new THREE.Mesh( geo, mat);
  				    
  				    box.x = Math.floor((Math.random() * 98) - 49);
@@ -113,6 +102,14 @@
 			        box.obj.recieveShadow = true;
 			        glitter.push(box);
  				    };
+ 		    //Adjusted window size trigged by mouse navigation 
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				controls.handleResize();
+				render();
+			}
 
 			// Uppdate the objects position with the framerate
 			function update_scene (t) {
