@@ -12,13 +12,12 @@
 
        		// Variabler
        		var Ypos = calculate();  //Call func calc and it returns ypos
-       		var max_of_glitter = 5;
+       		var max_of_glitter = 50;
        		var glitter = [];
        		var time = 0;
        		const N = 200; // Time step
        		var diff = calc_step();
-       		console.log(diff);
-
+       		//console.log(diff);
 
        		// add floor
 	      	var planeGeo = new THREE.PlaneGeometry(100, 100, 10, 10);
@@ -41,15 +40,15 @@
 	      	light.castShadow = true;
 
 			//Create boxes and store in array
- 			var geo = new THREE.BoxGeometry( 10, 1, 10 );
+ 			var geo = new THREE.BoxGeometry( 5, 0.5, 5 );
  			   for (var i = 0; i < max_of_glitter; i++) {
  				    var box = {};
  				    var mat = new THREE.MeshPhongMaterial({color: Math.floor(Math.random() * 0x1000000)});
  				    box.obj = new THREE.Mesh( geo, mat);
  				    
- 				    box.x = Math.floor((Math.random() * 99) - 49);
+ 				    box.x = Math.floor((Math.random() * 98) - 49);
 					box.y = 100;
-					box.z = 0;
+					box.z = Math.floor((Math.random() * 98) - 49);
 
 					box.dx = Math.random();  
 			        box.dy = 5;
@@ -71,11 +70,8 @@
 				renderer.render(scene, camera); // render the scene
 				window.requestAnimationFrame(update_scene, renderer.domElement);
 			}
-			 // 
-			 update_scene(new Date().getTime());
 
-			var count = 0;
-			var upp = 0;
+			update_scene(new Date().getTime());
 
 			function update_pos () {
 			for (var i = 0; i < max_of_glitter; i++) {
@@ -87,26 +83,31 @@
 				glitter[i].y = glitter[i].y + diff[i]*0.1;
 				
 				check_floor(glitter[i]);
-				
+
 				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z);
 				}; 
 			}
 
-			function calc_step () {
-				var diff = [];
-				for(i=0; i < N; i++)
-				{
-					if(i < 50)
-					{
-						diff[i] = Ypos[i] - Ypos[i+1];
-					}
-					else
-					{
-						diff[i] = diff[49];
-					}
-				}
-				return diff;
+			/*	function collision_check(box, i)
+			{
+				for (var j = 0; j < max_of_glitter; j++) {
+			     	if(i!=j && collision(box, glitter[j]) == true)
+			     	{
+			     	}
+			 	}
 			}
+			//Check distance between two box
+		    function collision(glitter1, glitter2)
+		    {
+		    	var distance = new THREE.Vector3( glitter1.x-glitter2.x, glitter1.y-glitter2.y, glitter1.z-glitter2.z );
+		    	//console.log(distance.length());
+		    	if(distance.length() < 10){ // om anvståndet är mindre än 10 så är det en kollision
+		    		return true;
+		    	}
+		    	else
+		    		return false;
+		    }
+		    */
 		
 			function check_floor (box) {
 				 if(box.y <= -50)
@@ -163,6 +164,22 @@
 			return posY;
 		}
 
+
+			function calc_step () {
+				var diff = [];
+				for(i=0; i < N; i++)
+				{
+					if(i < 50)
+					{
+						diff[i] = Ypos[i] - Ypos[i+1];
+					}
+					else
+					{
+						diff[i] = diff[49];
+					}
+				}
+				return diff;
+			}
 
 			function render() {
 				renderer.render( scene, camera );
