@@ -6,10 +6,31 @@
 			renderer.setSize( window.innerWidth, window.innerHeight );
 			document.body.appendChild( renderer.domElement );
 
+			var container, stats;
+			var controls;
+			controls = new THREE.TrackballControls( camera );
+
+			//Camera
 			camera.position.x = 0;
        		camera.position.y = 0;
        		camera.position.z = 100;
 
+			animate();
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				controls.handleResize();
+
+				render();
+
+			}
+
+	
        		// Variabler
        		var Ypos = calculate();  //Call func calc and it returns ypos
        		var max_of_glitter = 5;
@@ -20,7 +41,7 @@
 
        		// add floor
 	      	var planeGeo = new THREE.PlaneGeometry(100, 100, 10, 10);
-			var planeMat = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+			var planeMat = new THREE.MeshLambertMaterial({color: 0xFFFFFF });
 			var plane = new THREE.Mesh(planeGeo, planeMat);		
 			
 			plane.rotation.x = -Math.PI/2;
@@ -135,7 +156,14 @@
 			return posY;
 		}
 
-
 			function render() {
 				renderer.render( scene, camera );
+				stats.update();
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+				controls.update();
+
 			}
