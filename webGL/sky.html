@@ -132,13 +132,16 @@
 			        glitter.push(box);
  				    };
 
- 			var light = new THREE.SpotLight(0xFFFFFF, 5); //Vitt ljus och intensitet (jättestarkt!).
-	      	light.position.set( 50, 100, 50 );
+ 			var light = new THREE.SpotLight(0xFFFFFF, 1, 200); //Vitt ljus och intensitet (jättestarkt!).
+	      	light.position.set( 0, 100, 0 );
 	      	scene.add(light);
 	      	light.castShadow = true;
 	      	light.shadowDarkness = 0.7;
+			renderer.render( scene, camera );
 
-				renderer.render( scene, camera );
+			//Ambient ljus
+			var lightamb = new THREE.AmbientLight( 0xFFFFFF, 2, 200 ); // soft white light
+			scene.add( lightamb ); 
 
 			}
 
