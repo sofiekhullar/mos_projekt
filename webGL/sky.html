@@ -55,15 +55,13 @@
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			var container;
-
 			var camera, controls, scene, renderer;
-
 			var sky, sunSphere;
 
 			// Variabler
 			const N = 200; // Time step
        		var Ypos = calculate();  //Call func calc and it returns ypos
-       		var max_of_glitter = 200;
+       		var max_of_glitter = 1000;
        		var glitter = [];
        		var time = 0;
        		var diff = calc_step();
@@ -79,9 +77,10 @@
 
 				// Add Sun Helper
 				sunSphere = new THREE.Mesh(
-					new THREE.SphereBufferGeometry( 20000, 16, 8 ),
-					new THREE.MeshBasicMaterial( { color: 0xffffff } )
+							new THREE.SphereBufferGeometry( 20000, 16, 8 ),
+							new THREE.MeshBasicMaterial( { color: 0xffffff } )
 				);
+
 				sunSphere.position.y = - 700000;
 				sunSphere.visible = false;
 				scene.add( sunSphere );
@@ -117,7 +116,7 @@
  				    var mat = new THREE.MeshPhongMaterial({color});
  				    box.obj = new THREE.Mesh( geo, mat);
  				    
- 				    box.x = Math.floor((Math.random() * 98) - 49);
+ 				    box.x = Math.floor((Math.random() * 300) - 150);
 					box.y = 100;
 					box.z = Math.floor((Math.random() * 98) - 49);
 
@@ -133,7 +132,7 @@
 			        glitter.push(box);
  				    };
 
- 				 var light = new THREE.SpotLight(0xFFFFFF, 5); //Vitt ljus och intensitet (jättestarkt!).
+ 			var light = new THREE.SpotLight(0xFFFFFF, 5); //Vitt ljus och intensitet (jättestarkt!).
 	      	light.position.set( 50, 100, 50 );
 	      	scene.add(light);
 	      	light.castShadow = true;
@@ -146,9 +145,7 @@
 			function init() {
 
 				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 100, 2000000 );
-				camera.position.set( 0, 100, 200 );
-
-				//camera.setLens(20);
+				camera.position.set( 0, 0, 200 );
 
 				scene = new THREE.Scene();
 
