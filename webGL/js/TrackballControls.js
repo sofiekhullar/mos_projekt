@@ -601,8 +601,5 @@ THREE.TrackballControls = function ( object, domElement ) {
 };
 
 THREE.TrackballControls.prototype = Object.create( THREE.EventDispatcher.prototype );
-<<<<<<< HEAD
 THREE.TrackballControls.prototype.constructor = THREE.TrackballControls;
-=======
-THREE.TrackballControls.prototype.constructor = THREE.TrackballControls;
->>>>>>> 7908a1ead761fb3abab0d0e012ddc47b2fc6c70a
+
