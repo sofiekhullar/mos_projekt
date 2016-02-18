@@ -19,12 +19,12 @@
 
        		// Variabler
        		var Ypos = calculate();  //Call func calc and it returns ypos
-       		var max_of_glitter = 100;
+       		var max_of_glitter = 200;
        		var glitter = [];
        		var time = 0;
        		const N = 200; // Time step
        		var diff = calc_step();
-       		console.log(diff);
+       		//console.log(diff);
 
        		// add floor
 	      	var planeGeo = new THREE.PlaneGeometry(100, 100, 10, 10);
@@ -67,7 +67,7 @@
 			plane2.position.y = 0;
 			plane2.position.z = -50;
 
-			console.log(color);
+			//console.log(color);
 
 			//color: Math.floor(Math.random() * 0x1000000)
 			//Create boxes and store in array
@@ -86,7 +86,7 @@
 					box.z = Math.floor((Math.random() * 98) - 49);
 
 					box.dx = Math.random();  
-			        box.dy = 5;
+			        box.dy = ((Math.random() * 5) + 2)*0.1;
 			        box.dz = Math.random();
 
  				    box.obj.position.set( box.x, box.y, box.z);
@@ -111,30 +111,14 @@
 
 			var count = 0;
 			var add = 1;
+
 			function update_pos () {
 			for (var i = 0; i < max_of_glitter; i++) {
-				//glitter[i].y -= 0.9;
 
-/*
-				if(count%max_of_glitter == 0)
-				{
-					add++;
-					glitter[i].y = glitter[i].y + diff[add]*100;
-					//console.log(diff[add]);
-				}
-				else
-				{
-					glitter[i].y = glitter[i].y + diff[add]*100;
-					console.log(diff[add]*100);
-				}
-				count++;
-
-				*/
-				glitter[i].y = glitter[i].y + diff[i]*100;
+				glitter[i].y = glitter[i].y - glitter[i].dy;
 				check_floor(glitter[i]);
 				
-				//glitter[i].x.rotation +=90 ;
-				//console.log(glitter[i].x.rotation);
+				console.log(glitter[i].dy);
 				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z);
 				}; 
 			}
