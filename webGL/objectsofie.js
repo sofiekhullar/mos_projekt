@@ -109,25 +109,34 @@
 
 			update_scene(new Date().getTime());
 
+			var count = 0;
+			var add = 1;
 			function update_pos () {
 			for (var i = 0; i < max_of_glitter; i++) {
-				glitter[i].y -= 0.9;
-			
-				glitter[i].y = glitter[i].y + diff[i]*0.1;
-			
-				check_floor(glitter[i]);
-				//rotation(glitter[i]);
+				//glitter[i].y -= 0.9;
 
-				glitter[i].x.rotation +=90 ;
+/*
+				if(count%max_of_glitter == 0)
+				{
+					add++;
+					glitter[i].y = glitter[i].y + diff[add]*100;
+					//console.log(diff[add]);
+				}
+				else
+				{
+					glitter[i].y = glitter[i].y + diff[add]*100;
+					console.log(diff[add]*100);
+				}
+				count++;
+
+				*/
+				glitter[i].y = glitter[i].y + diff[i]*100;
+				check_floor(glitter[i]);
+				
+				//glitter[i].x.rotation +=90 ;
 				//console.log(glitter[i].x.rotation);
 				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z);
 				}; 
-			}
-
-			function rotation(box)
-			{
-				box.x.rotation += 90;
-
 			}
 
 			function check_floor (box) {
@@ -140,14 +149,15 @@
 			function calculate () {
 
 			const V0 = 0; // initial speed
-			const m = 0.00005; // mass in kg
-			const g = 9.82; // gravity acceleration kg/m3
+			const m = 0.003; // mass in kg
+			const g = 9.81; // gravity acceleration kg/m3
 			const rho = 1.2; // Air density
-			const Amax = 0.0044; // Object maxarea
-			const Amin = 0.0001; // Object minarea
+			const Amax = 0.06237; // Object maxarea
+			const Amin = 0.0100; // Object minarea
 			const cw = 0.4; // Numerical drag coefficient
-			const deltat=0.2;
-			const N = 100;
+			const deltat= 0.002;
+			const N = 200;
+
 			var V = new Array(N); // Speed
 			var posY = new Array(N); //Height
 			V[0]=V0; //Start velocity
@@ -173,7 +183,7 @@
 				 	fallingHor = false;
 				}
 
-			Arand = Amin; // FULKOD
+			Arand = Amax; // FULKOD
 
 			var k = 0.5*cw*rho*Arand; //Coefficient		 
 			   
@@ -189,7 +199,7 @@
 				var diff = [];
 				for(i=0; i < N; i++)
 				{
-					if(i < 50)
+					if(i < 100)
 					{
 						diff[i] = Ypos[i] - Ypos[i+1];
 					}
