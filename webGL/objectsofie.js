@@ -165,6 +165,8 @@
 				 if(box.y <= -50)
 				 {
 				 	box.y = -50
+				 	box.dx = 0;
+				 	box.dz = 0;
 				 }
 			}
 			function check_sphere (box, i) { // KOMMENTARER
