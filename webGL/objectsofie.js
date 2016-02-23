@@ -94,6 +94,7 @@
 			        box.dy = Math.random();
 			        box.dz = 0;
 
+
  				    box.obj.position.set( box.x, box.y, box.z);
 			        scene.add(box.obj);
 
@@ -117,7 +118,9 @@
 			var count = 0;
 			var add = 1;
 
+
 			function update_pos (dt) {
+
 			for (var i = 0; i < max_of_glitter; i++) {
 				if(glitter[i].count>max_of_glitter && glitter[i].y < -48)
 					{
@@ -126,12 +129,12 @@
 				    	glitter[i].dx =  0;
 				    	glitter[i].dz =  0;
 					}
+				
 				if(glitter[i].y > -49){
 					glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
 				}
 
 				
-
 				check_sphere(glitter[i], i);
 
 				if(glitter[i].y < (radius+10) && glitter[i].x < (radius+10) && glitter[i].x > (radius+10) )
@@ -144,6 +147,22 @@
 				glitter[i].z = glitter[i].z  + glitter[i].dz;
 
 				check_floor(glitter[i]);
+
+				if(glitter[i].y > -49) {
+					glitter[i].obj.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI*0.2, Math.random()*Math.PI*0.05); // Set initial rotation
+					glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation); // Apply rotation to the object's matrix
+
+				}
+
+				else {
+					glitter[i].obj.rotation.set(0,0,0);
+					glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation);
+				}
+				
+				glitter[i].y = glitter[i].y - glitter[i].dy;
+				check_floor(glitter[i]);
+
+				//console.log(glitter[i].dy);
 
 				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z);
 				}; 
@@ -214,6 +233,7 @@
 		    }
 
 			function render() {
+
 				renderer.render( scene, camera );
 				stats.update();
 			}
