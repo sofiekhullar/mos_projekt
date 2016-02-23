@@ -13,7 +13,7 @@
 			//Camera
 			camera.position.x = 0;
        		camera.position.y = 0;
-       		camera.position.z = 100;
+       		camera.position.z = 50;
 
 			animate();
 
@@ -65,6 +65,13 @@
 			plane2.position.y = 0;
 			plane2.position.z = -50;
 
+			// add sphere
+			var radius = 10;
+			var geometry = new THREE.SphereGeometry( radius, 40, 40 );
+			var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+			var sphere = new THREE.Mesh( geometry, material );
+			scene.add( sphere );
+
 			//console.log(color);
 
 			//color: Math.floor(Math.random() * 0x1000000)
@@ -83,9 +90,9 @@
 					box.y = 100;
 					box.z = Math.floor((Math.random() * 98) - 49);
 
- 					box.dx = Math.random();  
+ 					box.dx = 0;  
 			        box.dy = Math.random();
-			        box.dz = Math.random();
+			        box.dz = 0;
 
  				    box.obj.position.set( box.x, box.y, box.z);
 			        scene.add(box.obj);
@@ -122,16 +129,22 @@
 				if(glitter[i].y > -49){
 					glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
 				}
-				 	//glitter[i].x = glitter[i].x  + glitter[i].dx;  
-					glitter[i].y = glitter[i].y  + glitter[i].dy;
-					//glitter[i].z = glitter[i].z  + glitter[i].dz;
+
+				
+
+				check_sphere(glitter[i], i);
+
+				if(glitter[i].y < (radius+10) && glitter[i].x < (radius+10) && glitter[i].x > (radius+10) )
+				{
+					check_collision(glitter[i]);
+				}
+				
+				glitter[i].x = glitter[i].x  + glitter[i].dx;  
+				glitter[i].y = glitter[i].y  + glitter[i].dy;
+				glitter[i].z = glitter[i].z  + glitter[i].dz;
 
 				check_floor(glitter[i]);
 
-				check_box(glitter[i], i);
-
-				//check_collision(glitter[i], glitter[i+1]);
-				
 				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z);
 				}; 
 			}
@@ -142,19 +155,58 @@
 				 	box.y = -50
 				 }
 			}
-			function check_box (box, i) {
-				for (var j = 0; j < max_of_glitter; j++) {
- 			     	if(i!=j && check_collision(box, glitter[j]) == true)
+			function check_sphere (box, i) { // KOMMENTARER
+				var friction = 0.1;
+
+ 			     	if(check_collision(box) == true)
  			     	{
+ 			     		var v = new THREE.Vector3( box.dx, box.dy, box.dz );
+ 			     		var pos = new THREE.Vector3( box.x, box.y, box.z);
+
+ 			     		var l = v.length();
+ 			     		l *= friction;
+
+ 			     		v.normalize();
+
+ 			     		var n = pos.length();
+			     		pos.normalize();
+
+			     		var tz = (-(pos.x*0.3) -(pos.y*0.3)) / pos.z;
+			     		var tangent = new THREE.Vector3(0.3, 0.3, tz);
+
+			     		tangent.normalize();
+
+			     		var v1n = v.projectOnVector(pos);
+			     		var v1t = v.projectOnVector(tangent);
+
+			     		var v2an = new THREE.Vector3(((friction*v1n.x) + v1n.x)/2, 
+			     								((friction*v1n.y) + v1n.y)/2, 
+			     								((friction*v1n.z) + v1n.z)/2);
+
+
+			     		var v1a = new THREE.Vector3(v1n.x - v2an.x, v1n.y - v2an.y, v1n.z- v2an.z);
+			     		
+			     		v1a.setLength(l);
+			     		
+			     		box.dx = v1a.x*0.5;
+			     		box.dy = -v1a.y *0.5;
+			     		box.dz = v1a.z *0.5;
+
+			     		box.x += 1*pos.x;
+			     		box.y += 1*pos.y;
+			     		box.z += 1*pos.z;
+			     		
+			     		console.log(box.dy);
+
  			     	}
- 		 	}
 			}
 
-			function check_collision(glitter1, glitter2)
+			function check_collision(glitter)
 		    {
-		    	var distance = new THREE.Vector3( glitter1.x-glitter2.x, glitter1.y-glitter2.y, glitter1.z-glitter2.z );
-		    	if(distance.length()<2.2){
-		    		console.log(distance.length());
+		    	var distance = new THREE.Vector3( glitter.x, glitter.y, glitter.z );
+
+		    	if(distance.length() < 12){
+		    		//console.log(distance.length());
 		    		return true;
 		    	}
 		    	else
