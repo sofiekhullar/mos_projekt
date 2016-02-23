@@ -18,13 +18,11 @@
 			animate();
 
        		// Variabler
-       		var Ypos = calculate();  //Call func calc and it returns ypos
        		var max_of_glitter = 200;
        		var glitter = [];
        		var time = 0;
        		const N = 200; // Time step
-       		var diff = calc_step();
-       		//console.log(diff);
+       		//console.log(Ypos);
 
        		// add floor
 	      	var planeGeo = new THREE.PlaneGeometry(100, 100, 10, 10);
@@ -85,8 +83,8 @@
 					box.y = 100;
 					box.z = Math.floor((Math.random() * 98) - 49);
 
-					box.dx = Math.random();  
-			        box.dy = ((Math.random() * 5) + 2)*0.1;
+ 					box.dx = Math.random();  
+			        box.dy = Math.random();
 			        box.dz = Math.random();
 
  				    box.obj.position.set( box.x, box.y, box.z);
@@ -112,13 +110,28 @@
 			var count = 0;
 			var add = 1;
 
-			function update_pos () {
+			function update_pos (dt) {
 			for (var i = 0; i < max_of_glitter; i++) {
+				if(glitter[i].count>max_of_glitter && glitter[i].y < -48)
+					{
+						glitter[i].y = -49;
+						glitter[i].dy =  0;
+				    	glitter[i].dx =  0;
+				    	glitter[i].dz =  0;
+					}
+				if(glitter[i].y > -49){
+					glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
+				}
+				 	//glitter[i].x = glitter[i].x  + glitter[i].dx;  
+					glitter[i].y = glitter[i].y  + glitter[i].dy;
+					//glitter[i].z = glitter[i].z  + glitter[i].dz;
 
-				glitter[i].y = glitter[i].y - glitter[i].dy;
 				check_floor(glitter[i]);
+
+				check_box(glitter[i], i);
+
+				//check_collision(glitter[i], glitter[i+1]);
 				
-				console.log(glitter[i].dy);
 				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z);
 				}; 
 			}
@@ -129,71 +142,24 @@
 				 	box.y = -50
 				 }
 			}
-
-			function calculate () {
-
-			const V0 = 0; // initial speed
-			const m = 0.003; // mass in kg
-			const g = 9.81; // gravity acceleration kg/m3
-			const rho = 1.2; // Air density
-			const Amax = 0.06237; // Object maxarea
-			const Amin = 0.0100; // Object minarea
-			const cw = 0.4; // Numerical drag coefficient
-			const deltat= 0.002;
-			const N = 200;
-
-			var V = new Array(N); // Speed
-			var posY = new Array(N); //Height
-			V[0]=V0; //Start velocity
-			posY[0] = 10; // Start height
-
-			var t = new Array(N); //Tide 
-			
-			for(i = 0; i < N; i++)
-			{
-				t[i] = i * deltat;
+			function check_box (box, i) {
+				for (var j = 0; j < max_of_glitter; j++) {
+ 			     	if(i!=j && check_collision(box, glitter[j]) == true)
+ 			     	{
+ 			     	}
+ 		 	}
 			}
 
-			var Arand = (Math.random() * Amax + Amin); // Random nr mellan max och min
-
-			if( Arand < Amax && Arand > Amax/2) //Horrisontellt
-				{
-					Arand = Amin;
-					fallingHor = true;
-				}   
-			else   //Vertikalt
-				{
-					Arand = Amax;
-				 	fallingHor = false;
-				}
-
-			Arand = Amax; // FULKOD
-
-			var k = 0.5*cw*rho*Arand; //Coefficient		 
-			   
-			for(i=0; i < N; i++)
-			{
-				V[i+1] = V[i] + deltat * (g-(k/m)*Math.pow(V[i], 2));
-				posY[i+1] = posY[i] + V[i]*t[i+1];
-			}
-			return posY;
-		}
-
-			function calc_step () {
-				var diff = [];
-				for(i=0; i < N; i++)
-				{
-					if(i < 100)
-					{
-						diff[i] = Ypos[i] - Ypos[i+1];
-					}
-					else
-					{
-						diff[i] = diff[20];
-					}
-				}
-				return diff;
-			}
+			function check_collision(glitter1, glitter2)
+		    {
+		    	var distance = new THREE.Vector3( glitter1.x-glitter2.x, glitter1.y-glitter2.y, glitter1.z-glitter2.z );
+		    	if(distance.length()<2.2){
+		    		console.log(distance.length());
+		    		return true;
+		    	}
+		    	else
+		    		return false;
+		    }
 
 			function render() {
 				renderer.render( scene, camera );
