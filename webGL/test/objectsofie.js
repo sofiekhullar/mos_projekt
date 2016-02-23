@@ -158,15 +158,6 @@
 					check_collision(glitter[i]);
 				}
 
-				
-				
-				//if(glitter[i].y > -49) {
-				//}
-
-				//glitter[i].y = glitter[i].y - glitter[i].dy;
-				//check_floor(glitter[i]);
-
-				//console.log(glitter[i].dy);
 
 				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z);
 				}; 
