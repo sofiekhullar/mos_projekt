@@ -175,43 +175,38 @@
 
  			     	if(check_collision(box) == true)
  			     	{
+
+ 			     		//hasteghetsvektorn för glitter
  			     		var v = new THREE.Vector3( box.dx, box.dy, box.dz );
+ 			     		//positionsvektorn för glitter
  			     		var pos = new THREE.Vector3( box.x, box.y, box.z);
 
+ 			     		//längden av hastighetsvektorn
  			     		var l = v.length();
  			     		l *= friction;
 
+ 			     		//Normaliserar båda vektorerna
  			     		v.normalize();
-
- 			     		var n = pos.length();
 			     		pos.normalize();
 
-			     		var tz = (-(pos.x*0.3) -(pos.y*0.3)) / pos.z;
-			     		var tangent = new THREE.Vector3(0.3, 0.3, tz);
+			     		//projicerar hastighetsvektorn på positions vektorn
+			     		var projPos= v.projectOnVector(pos);
+			  
+			     		//Skapar en ny vektor som är positionerna av den projicerade vektorn
+			     		var posNew = new THREE.Vector3(projPos.x, projPos.y, projPos.z);
 
-			     		tangent.normalize();
-
-			     		var v1n = v.projectOnVector(pos);
-			     		var v1t = v.projectOnVector(tangent);
-
-			     		var v2an = new THREE.Vector3(((friction*v1n.x) + v1n.x)/2, 
-			     								((friction*v1n.y) + v1n.y)/2, 
-			     								((friction*v1n.z) + v1n.z)/2);
-
-
-			     		var v1a = new THREE.Vector3(v1n.x - v2an.x, v1n.y - v2an.y, v1n.z- v2an.z);
+			     		//sätter den nya poitions vektorn till samma längd som hastighets vektorn
+			     		posNew.setLength(l);
 			     		
-			     		v1a.setLength(l);
-			     		
-			     		box.dx = v1a.x*0.5;
-			     		box.dy = -v1a.y *0.5;
-			     		box.dz = v1a.z *0.5;
+			     		box.dx = posNew.x*0.5;
+			     		box.dy = -posNew.y *0.5;
+			     		box.dz = posNew.z *0.5;
 
 			     		box.x += 1*pos.x;
 			     		box.y += 1*pos.y;
 			     		box.z += 1*pos.z;
 			     		
-			     		console.log(box.dy);
+			     		//console.log(box.dy);
 
  			     	}
 			}

@@ -159,51 +159,46 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				}
 			}
 
-				function check_sphere (box, i) { // KOMMENTARER
-					var friction = 0.1;
+				function check_sphere (box, i) { 
+				var friction = 0.1;
 
-					if(check_collision(box) == true)
-					{
-						var v = new THREE.Vector3( box.dx, box.dy, box.dz );
-						var pos = new THREE.Vector3( box.x, box.y, box.z);
+ 			     	if(check_collision(box) == true)
+ 			     	{
 
-						var l = v.length();
-						l *= friction;
+ 			     		//hasteghetsvektorn för glitter
+ 			     		var v = new THREE.Vector3( box.dx, box.dy, box.dz );
+ 			     		//positionsvektorn för glitter
+ 			     		var pos = new THREE.Vector3( box.x, box.y, box.z);
 
-						v.normalize();
+ 			     		//längden av hastighetsvektorn
+ 			     		var l = v.length();
+ 			     		l *= friction;
 
-						var n = pos.length();
-						pos.normalize();
+ 			     		//Normaliserar båda vektorerna
+ 			     		v.normalize();
+			     		pos.normalize();
 
-						var tz = (-(pos.x*0.3) -(pos.y*0.3)) / pos.z;
-						var tangent = new THREE.Vector3(0.3, 0.3, tz);
+			     		//projicerar hastighetsvektorn på positions vektorn
+			     		var projPos= v.projectOnVector(pos);
+			  
+			     		//Skapar en ny vektor som är positionerna av den projicerade vektorn
+			     		var posNew = new THREE.Vector3(projPos.x, projPos.y, projPos.z);
 
-						tangent.normalize();
+			     		//sätter den nya poitions vektorn till samma längd som hastighets vektorn
+			     		posNew.setLength(l);
+			     		
+			     		box.dx = posNew.x*0.5;
+			     		box.dy = -posNew.y *0.5;
+			     		box.dz = posNew.z *0.5;
 
-						var v1n = v.projectOnVector(pos);
-						var v1t = v.projectOnVector(tangent);
-
-						var v2an = new THREE.Vector3(((friction*v1n.x) + v1n.x)/2, 
-							((friction*v1n.y) + v1n.y)/2, 
-							((friction*v1n.z) + v1n.z)/2);
-
-
-						var v1a = new THREE.Vector3(v1n.x - v2an.x, v1n.y - v2an.y, v1n.z- v2an.z);
-						
-						v1a.setLength(l);
-						
-						box.dx = v1a.x*0.5;
-						box.dy = -v1a.y *0.5;
-						box.dz = v1a.z *0.5;
-
-						box.x += 1*pos.x;
-						box.y += 1*pos.y;
-						box.z += 1*pos.z;
-						
+			     		box.x += 1*pos.x;
+			     		box.y += 1*pos.y;
+			     		box.z += 1*pos.z;
+			     		
 			     		//console.log(box.dy);
 
-			     	}
-			     }
+ 			     	}
+			}
 
 			     function check_collision(glitter)
 			     {

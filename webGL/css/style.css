@@ -1,7 +1,7 @@
 body {
-				color: #000;
+				color: #ffffff;
 				font-family:Monospace;
-				font-size:13px;
+				font-size:20px;
 				text-align:center;
 				font-weight: bold;
 
@@ -17,9 +17,16 @@ body {
 				position: absolute;
 				top: 0px; width: 100%;
 				padding: 5px;
+				text-align: top-center;
 
 			}
 
 			a {
 				color: #fff;
 			}
+
+			
+			#stats { position: absolute; top:0; left: 0 }
+			#stats #fps { background: transparent !important }
+			#stats #fps #fpsText { color: #aaa !important }
+			#stats #fps #fpsGraph { display: none }
