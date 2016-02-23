@@ -89,8 +89,21 @@
 			        box.dy = ((Math.random() * 5) + 2)*0.1;
 			        box.dz = Math.random();
 
+			        //box.obj.rotation.set(3.14);
+			        //box.rotation.x += 0.1;
+   			    	//box.rotation.y += 0.5;
+
+   			    	//box.x.rotation += 0.1;
+   			    	//box.y.rotation += 0.5;
+
+   			    	//box.x += (Math.random() * 48);
+   			    	//box.y += (Math.random() * 120);
+
  				    box.obj.position.set( box.x, box.y, box.z);
 			        scene.add(box.obj);
+
+			    //  box.obj.rotation.set(Math.PI/2, Math.PI/4, Math.PI/4); // Set initial rotation
+				//	box.obj.matrix.makeRotationFromEuler(box.obj.rotation); // Apply rotation to the object's matrix
 
 			        box.obj.castShadow = true;
 			        box.obj.recieveShadow = true;
@@ -112,13 +125,25 @@
 			var count = 0;
 			var add = 1;
 
+
 			function update_pos () {
 			for (var i = 0; i < max_of_glitter; i++) {
 
+				if(glitter[i].y > -49) {
+					glitter[i].obj.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI*0.2, Math.random()*Math.PI*0.05); // Set initial rotation
+					glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation); // Apply rotation to the object's matrix
+
+				}
+
+				else {
+					glitter[i].obj.rotation.set(0,0,0);
+					glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation);
+				}
+				
 				glitter[i].y = glitter[i].y - glitter[i].dy;
 				check_floor(glitter[i]);
-				
-				console.log(glitter[i].dy);
+
+				//console.log(glitter[i].dy);
 				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z);
 				}; 
 			}
@@ -196,6 +221,12 @@
 			}
 
 			function render() {
+
+				//rotation_matrix = new THREE.Matrix4().setRotationX(.01); // Animated rotation will be in .01 radians along object's X axis
+    			// Update the object's rotation & apply it
+    			//rotation_matrix.multiplySelf(box.obj.matrix);
+    			//box.obj.rotation.setRotationFromMatrix(rotation_matrix);
+
 				renderer.render( scene, camera );
 				stats.update();
 			}
