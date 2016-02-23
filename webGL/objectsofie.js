@@ -24,6 +24,15 @@
        		const N = 200; // Time step
        		//console.log(Ypos);
 
+   //     		//wind (finns också i cloth.js)
+   //     		var wind = true;
+			// var windStrength = 2;
+			// var windForce = new THREE.Vector3( 0, 0, 0 );
+			// var tmpForce = new THREE.Vector3();
+
+			
+
+
        		// add floor
 	      	var planeGeo = new THREE.PlaneGeometry(100, 100, 10, 10);
 			var planeMat = new THREE.MeshLambertMaterial({color: 0xFFFFFF });
@@ -245,4 +254,11 @@
 			function animate() {
 				requestAnimationFrame( animate );
 				controls.update();
+				
+
+
+				// var time = Date.now();
+				// simulate(time);
+				// windStrength = Math.cos( time / 7000 ) * 20 + 40;
+				// windForce.set( Math.sin( time / 2000 ), Math.cos( time / 3000 ), Math.sin( time / 1000 ) ).normalize().multiplyScalar( windStrength );
 			}
