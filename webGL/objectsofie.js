@@ -68,7 +68,7 @@
 			// add sphere
 			var radius = 10;
 			var geometry = new THREE.SphereGeometry( radius, 40, 40 );
-			var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+			var material = new THREE.MeshPhongMaterial( {color: 0xffff00} );
 			var sphere = new THREE.Mesh( geometry, material );
 			scene.add( sphere );
 
@@ -149,7 +149,6 @@
 					glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation);
 				}
 				
-
 				
 				check_sphere(glitter[i], i);
 
@@ -157,16 +156,6 @@
 				{
 					check_collision(glitter[i]);
 				}
-
-				
-				
-				//if(glitter[i].y > -49) {
-				//}
-
-				//glitter[i].y = glitter[i].y - glitter[i].dy;
-				//check_floor(glitter[i]);
-
-				//console.log(glitter[i].dy);
 
 				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z);
 				}; 
