@@ -22,7 +22,6 @@
        		var glitter = [];
        		var time = 0;
        		const N = 200; // Time step
-       		//console.log(Ypos);
 
        		// add floor
 	      	var planeGeo = new THREE.PlaneGeometry(100, 100, 10, 10);
@@ -68,7 +67,7 @@
 			// add sphere
 			var radius = 10;
 			var geometry = new THREE.SphereGeometry( radius, 40, 40 );
-			var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+			var material = new THREE.MeshPhongMaterial( {color: 0xffff00} );
 			var sphere = new THREE.Mesh( geometry, material );
 			scene.add( sphere );
 
