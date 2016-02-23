@@ -1,24 +1,24 @@
 
-			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-			var container;
-			var camera, controls, scene, renderer;
-			var sky, sunSphere;
+var container;
+var camera, controls, scene, renderer;
+var sky, sunSphere;
 
 			// Variabler
 			const N = 200; // Time step
-       		var max_of_glitter = 1000;
-       		var glitter = [];
-       		var time = 0;
+			var max_of_glitter = 1000;
+			var glitter = [];
+			var time = 0;
 
        		// add sphere
-			var radius = 10;
-				
+       		var radius = 10;
+       		
 
-			init();
-			render();
+       		init();
+       		render();
 
-			function initSky() {
+       		function initSky() {
 
 				// Add Sky Mesh
 				sky = new THREE.Sky();
@@ -26,9 +26,9 @@
 
 				// Add Sun Helper
 				sunSphere = new THREE.Mesh(
-							new THREE.SphereBufferGeometry( 20000, 16, 8 ),
-							new THREE.MeshBasicMaterial( { color: 0xffffff } )
-				);
+					new THREE.SphereBufferGeometry( 20000, 16, 8 ),
+					new THREE.MeshBasicMaterial( { color: 0xffffff } )
+					);
 
 				sunSphere.position.y = - 700000;
 				sunSphere.visible = false;
@@ -36,58 +36,58 @@
 
 				var distance = 400000;
 
-					var uniforms = sky.uniforms;
-					uniforms.turbidity.value = 10;
-					uniforms.reileigh.value = 2;
-					uniforms.luminance.value = 1;
-					uniforms.mieCoefficient.value = 0.005;
-					uniforms.mieDirectionalG.value = 0.8;
+				var uniforms = sky.uniforms;
+				uniforms.turbidity.value = 10;
+				uniforms.reileigh.value = 2;
+				uniforms.luminance.value = 1;
+				uniforms.mieCoefficient.value = 0.005;
+				uniforms.mieDirectionalG.value = 0.8;
 
-					var theta = Math.PI * ( 0.49 - 0.5 );
-					var phi = 2 * Math.PI * ( 0.25 - 0.5 );
+				var theta = Math.PI * ( 0.49 - 0.5 );
+				var phi = 2 * Math.PI * ( 0.25 - 0.5 );
 
 
-					sunSphere.position.x = distance * Math.cos( phi );
-					sunSphere.position.y = distance * Math.sin( phi ) * Math.sin( theta );
-					sunSphere.position.z = distance * Math.sin( phi ) * Math.cos( theta );
+				sunSphere.position.x = distance * Math.cos( phi );
+				sunSphere.position.y = distance * Math.sin( phi ) * Math.sin( theta );
+				sunSphere.position.z = distance * Math.sin( phi ) * Math.cos( theta );
 
-					sunSphere.visible = ! true;
+				sunSphere.visible = ! true;
 
-					sky.uniforms.sunPosition.value.copy( sunSphere.position );
+				sky.uniforms.sunPosition.value.copy( sunSphere.position );
 
-					var geo = new THREE.BoxGeometry( 5, 0.5, 5 );
- 				    for (var i = 0; i < max_of_glitter; i++) {
+				var geo = new THREE.BoxGeometry( 5, 0.5, 5 );
+				for (var i = 0; i < max_of_glitter; i++) {
  				    var color = Please.make_color({	// slumpar grå färger
 							greyscale: true, //for the brits
 							grayscale: true  //for the yanks
-							});
+						});
  				    var box = {};
  				    var mat = new THREE.MeshPhongMaterial({color});
  				    box.obj = new THREE.Mesh( geo, mat);
  				    
  				    box.x = Math.floor((Math.random() * 300) - 150);
-					box.y = 100;
-					box.z = Math.floor((Math.random() * 300) - 150);
+ 				    box.y = 100;
+ 				    box.z = Math.floor((Math.random() * 300) - 150);
 
-					box.dx = 0;
-			        box.dy = Math.random();
-			        box.dz = 0;
+ 				    box.dx = 0;
+ 				    box.dy = Math.random();
+ 				    box.dz = 0;
 
  				    box.obj.position.set( box.x, box.y, box.z);
-			        scene.add(box.obj);
+ 				    scene.add(box.obj);
 
-			        box.obj.castShadow = true;
-			        box.obj.recieveShadow = true;
-			        glitter.push(box);
- 				    };
+ 				    box.obj.castShadow = true;
+ 				    box.obj.recieveShadow = true;
+ 				    glitter.push(box);
+ 				};
 
  		    //add light
  			var light = new THREE.SpotLight(0xFFFFFF, 1, 200); //Vitt ljus och intensitet (jättestarkt!).
-	      	light.position.set( 0, 100, 0 );
-	      	scene.add(light);
-	      	light.castShadow = true;
-	      	light.shadowDarkness = 0.7;
-			renderer.render( scene, camera );
+ 			light.position.set( 0, 100, 0 );
+ 			scene.add(light);
+ 			light.castShadow = true;
+ 			light.shadowDarkness = 0.7;
+ 			renderer.render( scene, camera );
 
 			//Ambient ljus
 			var lightamb = new THREE.AmbientLight( 0xFFFFFF, 2, 200 ); // soft white light
@@ -101,22 +101,22 @@
 
 
 
-			}
+		}
 
-			function init() {
+		function init() {
 
-				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 100, 2000000 );
-				camera.position.set( 0, 0, 200 );
+			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 100, 2000000 );
+			camera.position.set( 0, 0, 200 );
 
-				scene = new THREE.Scene();
+			scene = new THREE.Scene();
 
-				renderer = new THREE.WebGLRenderer();
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				document.body.appendChild( renderer.domElement );
+			renderer = new THREE.WebGLRenderer();
+			renderer.setPixelRatio( window.devicePixelRatio );
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
 
-				controls = new THREE.OrbitControls( camera, renderer.domElement );
-				controls.addEventListener( 'change', render );
+			controls = new THREE.OrbitControls( camera, renderer.domElement );
+			controls.addEventListener( 'change', render );
 				//controls.maxPolarAngle = Math.PI / 2;
 				controls.enableZoom = false;
 				controls.enablePan = false;
@@ -128,7 +128,7 @@
 			}
 
 
-				function update_scene (t) {
+			function update_scene (t) {
 				dt = t-time;
 				time = t;
 				update_pos(dt);
@@ -143,23 +143,23 @@
 
 			function update_pos (dt) {
 
-			for (var i = 0; i < max_of_glitter; i++) {
-				if(glitter[i].count>max_of_glitter && glitter[i].y < -48)
+				for (var i = 0; i < max_of_glitter; i++) {
+					if(glitter[i].count>max_of_glitter && glitter[i].y < -48)
 					{
 						glitter[i].y = -49;
 						glitter[i].dy =  0;
-				    	glitter[i].dx =  0;
-				    	glitter[i].dz =  0;
+						glitter[i].dx =  0;
+						glitter[i].dz =  0;
 					}
 
-				glitter[i].x = glitter[i].x  + glitter[i].dx;  
-				glitter[i].y = glitter[i].y  + glitter[i].dy;
-				glitter[i].z = glitter[i].z  + glitter[i].dz;
+					glitter[i].x = glitter[i].x  + glitter[i].dx;  
+					glitter[i].y = glitter[i].y  + glitter[i].dy;
+					glitter[i].z = glitter[i].z  + glitter[i].dz;
 
-				check_floor(glitter[i]);
+					check_floor(glitter[i]);
 
-				
-				if(glitter[i].y > -49){
+					
+					if(glitter[i].y > -49){
 					glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
 					glitter[i].obj.rotation.set(Math.random()*Math.sin(i), Math.random()*Math.cos(i), 1); // Set initial rotation
 					glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation); // Apply rotation to the object's matrix
@@ -182,68 +182,68 @@
 
 
 				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z);
-				}; 
-			}
+			}; 
+		}
 
 
-			function check_floor (box) {
-				 if(box.y <= -50)
-				 {
-				 	box.y = -50
-				 }
+		function check_floor (box) {
+			if(box.y <= -50)
+			{
+				box.y = -50
 			}
+		}
 
 				function check_sphere (box, i) { // KOMMENTARER
-				var friction = 0.1;
+					var friction = 0.1;
 
- 			     	if(check_collision(box) == true)
- 			     	{
- 			     		var v = new THREE.Vector3( box.dx, box.dy, box.dz );
- 			     		var pos = new THREE.Vector3( box.x, box.y, box.z);
+					if(check_collision(box) == true)
+					{
+						var v = new THREE.Vector3( box.dx, box.dy, box.dz );
+						var pos = new THREE.Vector3( box.x, box.y, box.z);
 
- 			     		var l = v.length();
- 			     		l *= friction;
+						var l = v.length();
+						l *= friction;
 
- 			     		v.normalize();
+						v.normalize();
 
- 			     		var n = pos.length();
-			     		pos.normalize();
+						var n = pos.length();
+						pos.normalize();
 
-			     		var tz = (-(pos.x*0.3) -(pos.y*0.3)) / pos.z;
-			     		var tangent = new THREE.Vector3(0.3, 0.3, tz);
+						var tz = (-(pos.x*0.3) -(pos.y*0.3)) / pos.z;
+						var tangent = new THREE.Vector3(0.3, 0.3, tz);
 
-			     		tangent.normalize();
+						tangent.normalize();
 
-			     		var v1n = v.projectOnVector(pos);
-			     		var v1t = v.projectOnVector(tangent);
+						var v1n = v.projectOnVector(pos);
+						var v1t = v.projectOnVector(tangent);
 
-			     		var v2an = new THREE.Vector3(((friction*v1n.x) + v1n.x)/2, 
-			     								((friction*v1n.y) + v1n.y)/2, 
-			     								((friction*v1n.z) + v1n.z)/2);
+						var v2an = new THREE.Vector3(((friction*v1n.x) + v1n.x)/2, 
+							((friction*v1n.y) + v1n.y)/2, 
+							((friction*v1n.z) + v1n.z)/2);
 
 
-			     		var v1a = new THREE.Vector3(v1n.x - v2an.x, v1n.y - v2an.y, v1n.z- v2an.z);
-			     		
-			     		v1a.setLength(l);
-			     		
-			     		box.dx = v1a.x*0.5;
-			     		box.dy = -v1a.y *0.5;
-			     		box.dz = v1a.z *0.5;
+						var v1a = new THREE.Vector3(v1n.x - v2an.x, v1n.y - v2an.y, v1n.z- v2an.z);
+						
+						v1a.setLength(l);
+						
+						box.dx = v1a.x*0.5;
+						box.dy = -v1a.y *0.5;
+						box.dz = v1a.z *0.5;
 
-			     		box.x += 1*pos.x;
-			     		box.y += 1*pos.y;
-			     		box.z += 1*pos.z;
-			     		
+						box.x += 1*pos.x;
+						box.y += 1*pos.y;
+						box.z += 1*pos.z;
+						
 			     		//console.log(box.dy);
 
- 			     	}
-			}
+			     	}
+			     }
 
-			function check_collision(glitter)
-		    {
-		    	var distance = new THREE.Vector3( glitter.x, glitter.y, glitter.z );
+			     function check_collision(glitter)
+			     {
+			     	var distance = new THREE.Vector3( glitter.x, glitter.y, glitter.z );
 
-		    	if(distance.length() < 12){
+			     	if(distance.length() < 12){
 		    		//console.log(distance.length());
 		    		return true;
 		    	}
@@ -252,19 +252,19 @@
 		    }
 
 
-			function onWindowResize() {
+		    function onWindowResize() {
 
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
+		    	camera.aspect = window.innerWidth / window.innerHeight;
+		    	camera.updateProjectionMatrix();
 
-				renderer.setSize( window.innerWidth, window.innerHeight );
+		    	renderer.setSize( window.innerWidth, window.innerHeight );
 
-				render();
+		    	render();
 
-			}
+		    }
 
-			function render() {
+		    function render() {
 
-				renderer.render( scene, camera );
+		    	renderer.render( scene, camera );
 
-			}
+		    }
