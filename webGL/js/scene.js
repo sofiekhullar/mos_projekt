@@ -158,7 +158,13 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				 	box.dz = 0;
 				}
 			}
-
+						function add_wind (box) {
+				if(box.y >20 && box.y <40)
+				{
+					box.dx = 0.5;
+				}
+			}
+			
 				function check_sphere (box, i) { 
 				var friction = 0.1;
 

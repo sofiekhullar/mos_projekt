@@ -148,9 +148,14 @@
 					glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation);
 				}
 				
-
+				// lägg till wind
+				//if(glitter[i].y >20 && glitter[i].y <40)
+				//{
+					add_wind(glitter[i]);
+				//}
+					
 				
-				check_sphere(glitter[i], i);
+				check_sphere(glitter[i]);
 
 				if(glitter[i].y < (radius+10) && glitter[i].x < (radius+10) && glitter[i].x > (radius+10) )
 				{
@@ -162,6 +167,14 @@
 				}; 
 			}
 
+			function add_wind (box) {
+				if(box.y >20 && box.y <40)
+				{
+					box.dx = 0.5;
+				}
+				
+			}
+
 			function check_floor (box) {
 				 if(box.y <= -50)
 				 {
@@ -170,12 +183,11 @@
 				 	box.dz = 0;
 				 }
 			}
-			function check_sphere (box, i) { // KOMMENTARER
+			function check_sphere (box) { // KOMMENTARER
 				var friction = 0.1;
 
  			     	if(check_collision(box) == true)
  			     	{
-
  			     		//hasteghetsvektorn för glitter
  			     		var v = new THREE.Vector3( box.dx, box.dy, box.dz );
  			     		//positionsvektorn för glitter
@@ -202,9 +214,9 @@
 			     		box.dy = -posNew.y *0.5;
 			     		box.dz = posNew.z *0.5;
 
-			     		box.x += 1*pos.x;
-			     		box.y += 1*pos.y;
-			     		box.z += 1*pos.z;
+			     		box.x += pos.x;
+			     		box.y += pos.y;
+			     		box.z += pos.z;
 			     		
 			     		//console.log(box.dy);
 
