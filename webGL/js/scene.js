@@ -33,7 +33,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				// change sunlight
 				var uniforms = sky.uniforms;
 				uniforms.turbidity.value = 10;
-				uniforms.reileigh.value = 2;
+				uniforms.reileigh.value = 5;
 				uniforms.luminance.value = 1;
 				uniforms.mieCoefficient.value = 0.005;
 				uniforms.mieDirectionalG.value = 0.8;
