@@ -5,11 +5,10 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			var max_of_glitter = 2500;
 			var glitter = [];
 			var time = 0;
-			var radius = 15;
+			var radius = 10;
 			var container;
 			var camera, controls, scene, renderer;
 			var sky, sunSphere, sphere;
-			//sphere.visible = true;
 			var distance = 400000;
 
 			init();
@@ -51,7 +50,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			function init() {
 			// Add scene
 			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 100, 2000000 );
-			camera.position.set( 0, 0, 200);
+			camera.position.set( 0, 0, 130);
 			scene = new THREE.Scene();
 			renderer = new THREE.WebGLRenderer();
 			renderer.setPixelRatio( window.devicePixelRatio );
@@ -86,35 +85,22 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var geometry = new THREE.SphereBufferGeometry( radius, 40, 40);
 				var mesh = new THREE.Mesh(geometry, material);
 				scene.add(mesh);
-
-				//sphere.position.y = -20; 
-
-				//sphere.visible = false;
-
 				scene.add( sphere );
-
 
 				// Add controls
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
 				controls.addEventListener( 'change', render );
 				controls.enableZoom = false;
 				controls.enablePan = false;
-				window.addEventListener( 'resize', onWindowResize, false );
-
-				// Create boxes and push into a array
-
-				var loader = new THREE.TextureLoader();
+				window.addEventListener( 'resize', onWindowResize, false );	
 
 				//Add Texture
+				var loader = new THREE.TextureLoader();
 				var tex = loader.load('texture/goldglitter2.jpg');
-
-				//var mat = new THREE.MeshPhongMaterial( { color: 0xffffff, map: tex } );
 				var mat = new THREE.MeshPhongMaterial({color: 0xFFFF00, map:tex, specular: 0xFFFF00, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
-
-
-
 				var geo = new THREE.BoxGeometry( 1.25, 0.1, 1.25);
 
+				// Create boxes and push into a array
 				for (var i = 0; i < max_of_glitter; i++) {
  				    var box = {};
 
@@ -157,17 +143,9 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					glitter[i].z = glitter[i].z  + glitter[i].dz;
 
 					check_floor(glitter[i]);
-
-
-					//if(sphere.visible) {
-							check_sphere(glitter[i], i);
-					//}
-
-					add_wind(glitter[i]);
-				
-
 					check_sphere(glitter[i], i);
-					add_wind(glitter[i]);
+					//add_wind(glitter[i]);
+
 					update +=0.0004;
 					if(glitter[i].y > -49){
 						glitter[i].dy =  glitter[i].dy - 9.82/2000; // add gravity
@@ -224,17 +202,15 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			     		//sätter den nya poitions vektorn till samma längd som hastighets vektorn
 			     		posNew.setLength(l);
 			     		
-			     		//glitter[i].obj.rotation.set(0, 0, 0); 
+			     		box.rotation = Math.random();
 
-			     		box.rotation = (Math.random())*0.5;
+			     		box.dx = posNew.x*0.5;
+			     		box.dy = posNew.y*9;
+			     		box.dz = posNew.z *0.5;
 
-			     		box.dx = posNew.x;
-			     		box.dy = posNew.y*15;
-			     		box.dz = posNew.z;
-
-			     		box.x += 1*pos.x;
-			     		box.y += 1*pos.y;
-			     		box.z += 1*pos.z;
+			     		box.x += pos.x;
+			     		box.y += pos.y;
+			     		box.z += pos.z;
  			     	}
 			}
 
@@ -242,7 +218,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			     {
 			     	var distance = new THREE.Vector3( glitter.x, glitter.y, glitter.z );
 
-			     	if(distance.length() < 17){
+			     	if(distance.length() < 10){
 		    		//console.log(distance.length());
 		    		return true;
 		    	}
