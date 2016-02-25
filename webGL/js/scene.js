@@ -25,6 +25,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					new THREE.SphereBufferGeometry( 20000, 16, 8 ),
 					new THREE.MeshBasicMaterial( { color: 0xffffff } )
 					);
+
 				// add sun to scene
 				sunSphere.position.y = - 700000;
 				sunSphere.visible = false;
@@ -68,15 +69,34 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 	 			renderer.render( scene, camera );
 
 				//Ambient ljus
-				var lightamb = new THREE.AmbientLight( 0xFFFFFF, 2, 200 ); // soft white light
+				var lightamb = new THREE.AmbientLight( 0xFFFFFF, 2, 1000 ); // soft white light
 				scene.add( lightamb ); 
 
 				//Add sphere
-				var geometry = new THREE.SphereGeometry( radius, 40, 40 );
-				var material = new THREE.MeshPhongMaterial( {color: 0x999999} );
-				var sphere = new THREE.Mesh( geometry, material );
+
+				//Bilder att välja mellan: world.jpg, black.jpg, sofie.jpg
+				var texture = THREE.ImageUtils.loadTexture('texture/sofie.jpg');
+				var material = new THREE.MeshPhongMaterial({
+				    ambient: 0x808080,
+				    map: texture,
+				    specular: 0xFFFFFF,
+				    shininess: 30,
+				    shading: THREE.FlatShading,
+				});
+				var geometry = new THREE.SphereBufferGeometry( radius, 40, 40);
+				var mesh = new THREE.Mesh(geometry, material);
+				scene.add(mesh);
+
+				// var geometry = new THREE.SphereGeometry( radius, 40, 40 );
+				// var material = new THREE.MeshPhongMaterial( {color: 0x999999} );
+				// var sphere = new THREE.Mesh( geometry, material );
+
+				//sphere.position.y = -20; 
+
 				//sphere.visible = false;
+
 				scene.add( sphere );
+
 
 				// Add controls
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
@@ -119,15 +139,14 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var geo = new THREE.BoxGeometry( 2, 0.2, 2 );
 
 				for (var i = 0; i < max_of_glitter; i++) {
-					//TODO! ADD TEXTURE
- 				    /*var color = Please.make_color({	// slumpar grå färger 
-							greyscale: true, //for the brits
-							grayscale: true  //for the yanks
-						});*/
  				    var box = {};
+
+ 				    //var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 2});
+
 
  				   // var mat = new THREE.MeshPhongMaterial({color});
  				   // var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1, map:tex});
+
 
  				    box.obj = new THREE.Mesh( geo, mat);
  				   	// start conditions pos
@@ -181,7 +200,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					add_wind(glitter[i]);
 					update +=0.0004;
 					if(glitter[i].y > -49){
-						glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
+						glitter[i].dy =  glitter[i].dy - 9.82/2000; // add gravity
 						glitter[i].obj.rotation.set(glitter[i].rotation * update, 1, 1); // Set initial rotation
 						glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation); // Apply rotation to the object's matrix
 					}
