@@ -8,7 +8,8 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			var radius = 10;
 			var container;
 			var camera, controls, scene, renderer;
-			var sky, sunSphere;
+			var sky, sunSphere, sphere;
+			//sphere.visible = true;
 			var distance = 400000;
 
 			init();
@@ -74,6 +75,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var geometry = new THREE.SphereGeometry( radius, 40, 40 );
 				var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
 				var sphere = new THREE.Mesh( geometry, material );
+				//sphere.visible = false;
 				scene.add( sphere );
 
 				// Add controls
@@ -83,7 +85,35 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				controls.enablePan = false;
 				window.addEventListener( 'resize', onWindowResize, false );
 
+
+				/*
+
+				var texloader = new THREE.TextureLoader();
+				var tex=texloader.load("second.jpg");
+				var mat = new THREE.MeshBasicMaterial({ map: tex });
+
+				var loader = new THREE.TGALoader();
+
+				// add box 1 - grey8 texture
+				var texture1 = loader.load( 'textures/crate_grey8.tga' );
+				var material1 = new THREE.MeshPhongMaterial( { color: 0xffffff, map: texture1 } );
+
+				var geometry = new THREE.BoxGeometry( 50, 50, 50 );
+				var mesh1 = new THREE.Mesh( geometry, material1 );
+				mesh1.rotation.x = -Math.PI / 2;
+				mesh1.position.x = - 50;
+
+				scene.add( mesh1 );
+
+				*/
 				// Create boxes and push into a array
+				var loader = new THREE.TextureLoader();
+
+				//Add Texture
+				var tex = loader.load('texture/bokeh2.jpg');
+				var mat = new THREE.MeshPhongMaterial( { color: 0xffffff, map: tex } );
+				//var mat = new THREE.MeshBasicMaterial({ map: tex });
+
 				var geo = new THREE.BoxGeometry( 5, 0.5, 5 );
 				for (var i = 0; i < max_of_glitter; i++) {
 					//TODO! ADD TEXTURE
@@ -92,7 +122,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 							grayscale: true  //for the yanks
 						});
  				    var box = {};
- 				    var mat = new THREE.MeshPhongMaterial({color});
+ 				   // var mat = new THREE.MeshPhongMaterial({color});
  				    box.obj = new THREE.Mesh( geo, mat);
  				   	// start conditions pos
  				   	box.x = Math.floor((Math.random() * 300) - 150);
@@ -132,8 +162,13 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					glitter[i].z = glitter[i].z  + glitter[i].dz;
 
 					check_floor(glitter[i]);
-					check_sphere(glitter[i], i);
 
+					//if(sphere.visible) {
+							check_sphere(glitter[i], i);
+					//}
+
+					add_wind(glitter[i]);
+				
 					update +=0.0004;
 					if(glitter[i].y > -49){
 						glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
