@@ -167,7 +167,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					glitter[i].z = glitter[i].z  + glitter[i].dz;
 
 					check_floor(glitter[i]);
-<<<<<<< HEAD
+
 
 					//if(sphere.visible) {
 							check_sphere(glitter[i], i);
@@ -175,10 +175,9 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 					add_wind(glitter[i]);
 				
-=======
+
 					check_sphere(glitter[i], i);
 					add_wind(glitter[i]);
->>>>>>> 333af0da2870cc39676ec2760e18ef8193ac4caf
 					update +=0.0004;
 					if(glitter[i].y > -49){
 						glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
