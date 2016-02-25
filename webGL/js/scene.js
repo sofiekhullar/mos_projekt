@@ -5,7 +5,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			var max_of_glitter = 2500;
 			var glitter = [];
 			var time = 0;
-			var radius = 10;
+			var radius = 15;
 			var container;
 			var camera, controls, scene, renderer;
 			var sky, sunSphere, sphere;
@@ -87,10 +87,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var mesh = new THREE.Mesh(geometry, material);
 				scene.add(mesh);
 
-				// var geometry = new THREE.SphereGeometry( radius, 40, 40 );
-				// var material = new THREE.MeshPhongMaterial( {color: 0x999999} );
-				// var sphere = new THREE.Mesh( geometry, material );
-
 				//sphere.position.y = -20; 
 
 				//sphere.visible = false;
@@ -105,48 +101,22 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				controls.enablePan = false;
 				window.addEventListener( 'resize', onWindowResize, false );
 
-
-				/*
-
-				var texloader = new THREE.TextureLoader();
-				var tex=texloader.load("second.jpg");
-				var mat = new THREE.MeshBasicMaterial({ map: tex });
-
-				var loader = new THREE.TGALoader();
-
-				// add box 1 - grey8 texture
-				var texture1 = loader.load( 'textures/crate_grey8.tga' );
-				var material1 = new THREE.MeshPhongMaterial( { color: 0xffffff, map: texture1 } );
-
-				var geometry = new THREE.BoxGeometry( 50, 50, 50 );
-				var mesh1 = new THREE.Mesh( geometry, material1 );
-				mesh1.rotation.x = -Math.PI / 2;
-				mesh1.position.x = - 50;
-
-				scene.add( mesh1 );
-
-				*/
 				// Create boxes and push into a array
 
 				var loader = new THREE.TextureLoader();
 
 				//Add Texture
 				var tex = loader.load('texture/goldglitter2.jpg');
+
 				//var mat = new THREE.MeshPhongMaterial( { color: 0xffffff, map: tex } );
 				var mat = new THREE.MeshPhongMaterial({color: 0xFFFF00, map:tex, specular: 0xFFFF00, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
+
 
 
 				var geo = new THREE.BoxGeometry( 1.25, 0.1, 1.25);
 
 				for (var i = 0; i < max_of_glitter; i++) {
  				    var box = {};
-
- 				    //var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 2});
-
-
- 				   // var mat = new THREE.MeshPhongMaterial({color});
- 				   // var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1, map:tex});
-
 
  				    box.obj = new THREE.Mesh( geo, mat);
  				   	// start conditions pos
@@ -259,7 +229,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			     		box.rotation = (Math.random())*0.5;
 
 			     		box.dx = posNew.x;
-			     		box.dy = posNew.y*9;
+			     		box.dy = posNew.y*15;
 			     		box.dz = posNew.z;
 
 			     		box.x += 1*pos.x;
@@ -272,7 +242,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			     {
 			     	var distance = new THREE.Vector3( glitter.x, glitter.y, glitter.z );
 
-			     	if(distance.length() < 12){
+			     	if(distance.length() < 17){
 		    		//console.log(distance.length());
 		    		return true;
 		    	}
