@@ -49,7 +49,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			function init() {
 			// Add scene
 			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 100, 2000000 );
-			camera.position.set( 0, 0, 200 );
+			camera.position.set( 0, 0, 200);
 			scene = new THREE.Scene();
 			renderer = new THREE.WebGLRenderer();
 			renderer.setPixelRatio( window.devicePixelRatio );
@@ -96,7 +96,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
  				    box.obj = new THREE.Mesh( geo, mat);
  				   	// start conditions pos
  				   	box.x = Math.floor((Math.random() * 300) - 150);
- 				   	box.y = 100;
+ 				   	box.y = 140;
  				   	box.z = Math.floor((Math.random() * 300) - 150);
  				    // start conditions veolcity
  				    box.dx = 0;
@@ -133,7 +133,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 					check_floor(glitter[i]);
 					check_sphere(glitter[i], i);
-
+					//add_wind(glitter[i]);
 					update +=0.0004;
 					if(glitter[i].y > -49){
 						glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
@@ -148,11 +148,10 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				}; 
 			}
 
-
 			function check_floor (box) {
-				if(box.y <= -50)
+				if(box.y <= -70)
 				{
-					box.y = -50
+					box.y = -70
 				 	box.dx = 0;
 				 	box.dz = 0;
 				}
@@ -191,9 +190,13 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			     		//sätter den nya poitions vektorn till samma längd som hastighets vektorn
 			     		posNew.setLength(l);
 			     		
-			     		box.dx = posNew.x*0.5;
-			     		box.dy = -posNew.y *0.5;
-			     		box.dz = posNew.z *0.5;
+			     		//glitter[i].obj.rotation.set(0, 0, 0); 
+
+			     		box.rotation = Math.random();
+
+			     		box.dx = posNew.x;
+			     		box.dy = posNew.y*9;
+			     		box.dz = posNew.z;
 
 			     		box.x += 1*pos.x;
 			     		box.y += 1*pos.y;

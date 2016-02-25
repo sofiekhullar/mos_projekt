@@ -94,7 +94,7 @@
 			        box.dz = 0;
 
 			        box.rotation = Math.random();
-			        //console.log(box.rotation);
+
  				    box.obj.position.set( box.x, box.y, box.z);
 			        scene.add(box.obj);
 
@@ -133,29 +133,28 @@
 
 				check_floor(glitter[i]);
 
+				if(glitter[i].y > -49)
+				{
+					glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
+				}
+
 				update +=0.002;
 				if(glitter[i].y > -49){
-					glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
 					glitter[i].obj.rotation.set(glitter[i].rotation * update, 1, 1); // Set initial rotation // Set initial rotation
 					glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation); // Apply rotation to the object's matrix
 				}
-
-				
 				else {
 					glitter[i].obj.rotation.set(0,0,0);
 					glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation);
 				}
 				
 				add_wind(glitter[i]);
-					
-				
 				check_sphere(glitter[i]);
 
 				if(glitter[i].y < (radius+10) && glitter[i].x < (radius+10) && glitter[i].x > (radius+10) )
 				{
 					check_collision(glitter[i]);
 				}
-
 				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z);
 				}; 
 			}
@@ -202,14 +201,15 @@
 			     		//sätter den nya poitions vektorn till samma längd som hastighets vektorn
 			     		posNew.setLength(l);
 			     		
+			     		box.rotation = Math.random();
+
 			     		box.dx = posNew.x*0.5;
-			     		box.dy = -posNew.y *0.5;
+			     		box.dy = posNew.y*9;
 			     		box.dz = posNew.z *0.5;
 
 			     		box.x += pos.x;
 			     		box.y += pos.y;
 			     		box.z += pos.z;
-
  			     	}
 			}
 
