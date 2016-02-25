@@ -25,6 +25,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					new THREE.SphereBufferGeometry( 20000, 16, 8 ),
 					new THREE.MeshBasicMaterial( { color: 0xffffff } )
 					);
+
 				// add sun to scene
 				sunSphere.position.y = - 700000;
 				sunSphere.visible = false;
@@ -74,10 +75,18 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				scene.add( lightamb ); 
 
 				//Add sphere
-				var geometry = new THREE.SphereGeometry( radius, 40, 40 );
-				var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
-				var sphere = new THREE.Mesh( geometry, material );
-				scene.add( sphere );
+				//Bilder att välja mellan: world.jpg, black.jpg, sofie.jpg
+				var texture = THREE.ImageUtils.loadTexture('img/sofie.jpg');
+				var material = new THREE.MeshPhongMaterial({
+				    ambient: 0x808080,
+				    map: texture,
+				    specular: 0xFFFFFF,
+				    shininess: 30,
+				    shading: THREE.FlatShading,
+				});
+				var geometry = new THREE.SphereBufferGeometry( radius, 40, 40);
+				var mesh = new THREE.Mesh(geometry, material);
+				scene.add(mesh);
 
 				// Add controls
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
