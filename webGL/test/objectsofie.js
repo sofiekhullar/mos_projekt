@@ -93,7 +93,8 @@
 			        box.dy = Math.random();
 			        box.dz = 0;
 
-
+			        box.rotation = Math.random();
+			        //console.log(box.rotation);
  				    box.obj.position.set( box.x, box.y, box.z);
 			        scene.add(box.obj);
 
@@ -114,10 +115,7 @@
 
 			update_scene(new Date().getTime());
 
-			var count = 0;
-			var add = 1;
-
-
+			var update = 0;
 			function update_pos (dt) {
 
 			for (var i = 0; i < max_of_glitter; i++) {
@@ -135,10 +133,10 @@
 
 				check_floor(glitter[i]);
 
-				
+				update +=0.002;
 				if(glitter[i].y > -49){
 					glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
-					glitter[i].obj.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI*0.2, Math.random()*Math.PI*0.05); // Set initial rotation
+					glitter[i].obj.rotation.set(glitter[i].rotation * update, 1, 1); // Set initial rotation // Set initial rotation
 					glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation); // Apply rotation to the object's matrix
 				}
 
@@ -148,11 +146,7 @@
 					glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation);
 				}
 				
-				// lägg till wind
-				//if(glitter[i].y >20 && glitter[i].y <40)
-				//{
-					add_wind(glitter[i]);
-				//}
+				add_wind(glitter[i]);
 					
 				
 				check_sphere(glitter[i]);
@@ -161,7 +155,6 @@
 				{
 					check_collision(glitter[i]);
 				}
-
 
 				glitter[i].obj.position.set( glitter[i].x , glitter[i].y , glitter[i].z);
 				}; 
@@ -216,8 +209,6 @@
 			     		box.x += pos.x;
 			     		box.y += pos.y;
 			     		box.z += pos.z;
-			     		
-			     		//console.log(box.dy);
 
  			     	}
 			}

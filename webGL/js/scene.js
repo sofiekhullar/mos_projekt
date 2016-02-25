@@ -15,7 +15,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			render();
 
 			function initSky() {
-
 				// Add Sky Mesh
 				sky = new THREE.Sky();
 				scene.add( sky.mesh);
@@ -45,8 +44,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				sunSphere.visible = ! true;
 
 				sky.uniforms.sunPosition.value.copy( sunSphere.position );
-
-
 			}
 
 			function init() {
@@ -106,6 +103,8 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
  				    box.dy = Math.random();
  				    box.dz = 0;
 
+ 				    box.rotation = Math.random();
+
  				    box.obj.position.set( box.x, box.y, box.z);
  				    scene.add(box.obj);
  				    // add shadow
@@ -135,11 +134,10 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					check_floor(glitter[i]);
 					check_sphere(glitter[i], i);
 
-					update +=0.0001*Math.random();
+					update +=0.0004;
 					if(glitter[i].y > -49){
 						glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
-						
-						glitter[i].obj.rotation.set(update, 1, 1); // Set initial rotation
+						glitter[i].obj.rotation.set(glitter[i].rotation * update, 1, 1); // Set initial rotation
 						glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation); // Apply rotation to the object's matrix
 					}
 					else {
@@ -171,7 +169,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
  			     	if(check_collision(box) == true)
  			     	{
-
  			     		//hasteghetsvektorn för glitter
  			     		var v = new THREE.Vector3( box.dx, box.dy, box.dz );
  			     		//positionsvektorn för glitter
