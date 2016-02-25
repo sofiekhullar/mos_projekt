@@ -116,17 +116,16 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
  			}
 
 			// update per frame
-			function update_scene (t) {
-				dt = t-time;
-				time = t;
-				update_pos(dt);
+			function update_scene () {
+				update_pos();
 				renderer.render(scene, camera); // render the scene
 				window.requestAnimationFrame(update_scene, renderer.domElement);
 			}
 
-			update_scene(new Date().getTime());
+			update_scene();
 
-			function update_pos (dt) {
+			var update = 0;
+			function update_pos () {
 				for (var i = 0; i < max_of_glitter; i++) {
 					//update positions
 					glitter[i].x = glitter[i].x  + glitter[i].dx;  
@@ -135,10 +134,12 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 					check_floor(glitter[i]);
 					check_sphere(glitter[i], i);
-					
+
+					update +=0.0001*Math.random();
 					if(glitter[i].y > -49){
 						glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
-						glitter[i].obj.rotation.set(Math.random()*Math.sin(i), Math.random()*Math.cos(i), 1); // Set initial rotation
+						
+						glitter[i].obj.rotation.set(update, 1, 1); // Set initial rotation
 						glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation); // Apply rotation to the object's matrix
 					}
 					else {
@@ -158,13 +159,13 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				 	box.dz = 0;
 				}
 			}
-						function add_wind (box) {
+				function add_wind (box) {
 				if(box.y >20 && box.y <40)
 				{
 					box.dx = 0.5;
 				}
 			}
-			
+
 				function check_sphere (box, i) { 
 				var friction = 0.1;
 
@@ -200,9 +201,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			     		box.x += 1*pos.x;
 			     		box.y += 1*pos.y;
 			     		box.z += 1*pos.z;
-			     		
-			     		//console.log(box.dy);
-
  			     	}
 			}
 
@@ -220,18 +218,12 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 
 		    function onWindowResize() {
-
 		    	camera.aspect = window.innerWidth / window.innerHeight;
 		    	camera.updateProjectionMatrix();
-
 		    	renderer.setSize( window.innerWidth, window.innerHeight );
-
 		    	render();
-
 		    }
 
 		    function render() {
-
 		    	renderer.render( scene, camera );
-
 		    }

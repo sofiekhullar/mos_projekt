@@ -172,7 +172,6 @@
 				{
 					box.dx = 0.5;
 				}
-				
 			}
 
 			function check_floor (box) {
