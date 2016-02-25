@@ -73,9 +73,9 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				scene.add( lightamb ); 
 
 				//Add sphere
-<<<<<<< HEAD
+
 				//Bilder att välja mellan: world.jpg, black.jpg, sofie.jpg
-				var texture = THREE.ImageUtils.loadTexture('img/sofie.jpg');
+				var texture = THREE.ImageUtils.loadTexture('texture/sofie.jpg');
 				var material = new THREE.MeshPhongMaterial({
 				    ambient: 0x808080,
 				    map: texture,
@@ -86,17 +86,17 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var geometry = new THREE.SphereBufferGeometry( radius, 40, 40);
 				var mesh = new THREE.Mesh(geometry, material);
 				scene.add(mesh);
-=======
-				var geometry = new THREE.SphereGeometry( radius, 40, 40 );
-				var material = new THREE.MeshPhongMaterial( {color: 0x999999} );
-				var sphere = new THREE.Mesh( geometry, material );
+
+				// var geometry = new THREE.SphereGeometry( radius, 40, 40 );
+				// var material = new THREE.MeshPhongMaterial( {color: 0x999999} );
+				// var sphere = new THREE.Mesh( geometry, material );
 
 				//sphere.position.y = -20; 
 
 				//sphere.visible = false;
 
 				scene.add( sphere );
->>>>>>> c1bbcb67a77a7310f381a4dfacefc9ccbe310eb4
+
 
 				// Add controls
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
