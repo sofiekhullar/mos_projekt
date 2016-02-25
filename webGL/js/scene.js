@@ -2,10 +2,10 @@
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			// Variabler
-			var max_of_glitter = 2000;
+			var max_of_glitter = 2500;
 			var glitter = [];
 			var time = 0;
-			var radius = 10;
+			var radius = 15;
 			var container;
 			var camera, controls, scene, renderer;
 			var sky, sunSphere, sphere;
@@ -33,7 +33,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				// change sunlight
 				var uniforms = sky.uniforms;
 				uniforms.turbidity.value = 10;
-				uniforms.reileigh.value = 2;
+				uniforms.reileigh.value = 5;
 				uniforms.luminance.value = 1;
 				uniforms.mieCoefficient.value = 0.005;
 				uniforms.mieDirectionalG.value = 0.8;
@@ -75,13 +75,13 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				//Add sphere
 
 				//Bilder att välja mellan: world.jpg, black.jpg, sofie.jpg
-				var texture = THREE.ImageUtils.loadTexture('texture/sofie.jpg');
+				var texture = THREE.ImageUtils.loadTexture('texture/green_2.jpg');
 				var material = new THREE.MeshPhongMaterial({
-				    ambient: 0x808080,
+				    ambient: 0x404040,
 				    map: texture,
-				    specular: 0xFFFFFF,
+				    specular: 0x000000,
 				    shininess: 30,
-				    shading: THREE.FlatShading,
+				    shading: THREE.SmoothShading,
 				});
 				var geometry = new THREE.SphereBufferGeometry( radius, 40, 40);
 				var mesh = new THREE.Mesh(geometry, material);
@@ -107,10 +107,13 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 				//Add Texture
 				var tex = loader.load('texture/goldglitter2.jpg');
-				var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, map:tex, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
+
+				//var mat = new THREE.MeshPhongMaterial( { color: 0xffffff, map: tex } );
+				var mat = new THREE.MeshPhongMaterial({color: 0xFFFF00, map:tex, specular: 0xFFFF00, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
 
 
-				var geo = new THREE.BoxGeometry( 2, 0.2, 2 );
+
+				var geo = new THREE.BoxGeometry( 1.25, 0.1, 1.25);
 
 				for (var i = 0; i < max_of_glitter; i++) {
  				    var box = {};
@@ -192,9 +195,9 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			}
 
 			function check_floor (box) {
-				if(box.y <= -70)
+				if(box.y <= -200)
 				{
-					box.y = -70
+					box.y = -200;
 				 	box.dx = 0;
 				 	box.dz = 0;
 				}
@@ -238,7 +241,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			     		box.rotation = (Math.random())*0.5;
 
 			     		box.dx = posNew.x;
-			     		box.dy = posNew.y*9;
+			     		box.dy = posNew.y*15;
 			     		box.dz = posNew.z;
 
 			     		box.x += 1*pos.x;
@@ -251,7 +254,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			     {
 			     	var distance = new THREE.Vector3( glitter.x, glitter.y, glitter.z );
 
-			     	if(distance.length() < 12){
+			     	if(distance.length() < 17){
 		    		//console.log(distance.length());
 		    		return true;
 		    	}
