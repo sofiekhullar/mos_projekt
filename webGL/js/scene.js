@@ -5,7 +5,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			var max_of_glitter = 2000;
 			var glitter = [];
 			var time = 0;
-			var radius = 10;
+			var radius = 15;
 			var container;
 			var camera, controls, scene, renderer;
 			var sky, sunSphere, sphere;
@@ -243,7 +243,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			     		box.rotation = (Math.random())*0.5;
 
 			     		box.dx = posNew.x;
-			     		box.dy = posNew.y*9;
+			     		box.dy = posNew.y*15;
 			     		box.dz = posNew.z;
 
 			     		box.x += 1*pos.x;
@@ -256,7 +256,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			     {
 			     	var distance = new THREE.Vector3( glitter.x, glitter.y, glitter.z );
 
-			     	if(distance.length() < 12){
+			     	if(distance.length() < 17){
 		    		//console.log(distance.length());
 		    		return true;
 		    	}
