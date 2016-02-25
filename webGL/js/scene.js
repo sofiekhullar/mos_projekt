@@ -2,7 +2,7 @@
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			// Variabler
-			var max_of_glitter = 1000;
+			var max_of_glitter = 2000;
 			var glitter = [];
 			var time = 0;
 			var radius = 10;
@@ -50,7 +50,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			function init() {
 			// Add scene
 			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 100, 2000000 );
-			camera.position.set( 0, 0, 200 );
+			camera.position.set( 0, 0, 200);
 			scene = new THREE.Scene();
 			renderer = new THREE.WebGLRenderer();
 			renderer.setPixelRatio( window.devicePixelRatio );
@@ -60,8 +60,8 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			initSky();
 
 				//add light
-	 			var light = new THREE.SpotLight(0xFFFFFF, 1, 200); //Vitt ljus och intensitet (jättestarkt!).
-	 			light.position.set( 0, 100, 0 );
+	 			var light = new THREE.SpotLight(0xFFFFFF, 1, 1000); //Vitt ljus och intensitet (jättestarkt!).
+	 			light.position.copy(camera.position);
 	 			scene.add(light);
 	 			light.castShadow = true;
 	 			light.shadowDarkness = 0.7;
@@ -73,7 +73,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 				//Add sphere
 				var geometry = new THREE.SphereGeometry( radius, 40, 40 );
-				var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+				var material = new THREE.MeshPhongMaterial( {color: 0x999999} );
 				var sphere = new THREE.Mesh( geometry, material );
 				//sphere.visible = false;
 				scene.add( sphere );
@@ -107,6 +107,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 				*/
 				// Create boxes and push into a array
+
 				var loader = new THREE.TextureLoader();
 
 				//Add Texture
@@ -114,19 +115,23 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var mat = new THREE.MeshPhongMaterial( { color: 0xffffff, map: tex } );
 				//var mat = new THREE.MeshBasicMaterial({ map: tex });
 
-				var geo = new THREE.BoxGeometry( 5, 0.5, 5 );
+				var geo = new THREE.BoxGeometry( 2, 0.2, 2 );
+
 				for (var i = 0; i < max_of_glitter; i++) {
 					//TODO! ADD TEXTURE
- 				    var color = Please.make_color({	// slumpar grå färger 
+ 				    /*var color = Please.make_color({	// slumpar grå färger 
 							greyscale: true, //for the brits
 							grayscale: true  //for the yanks
-						});
+						});*/
  				    var box = {};
+
  				   // var mat = new THREE.MeshPhongMaterial({color});
+ 				    var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
+
  				    box.obj = new THREE.Mesh( geo, mat);
  				   	// start conditions pos
  				   	box.x = Math.floor((Math.random() * 300) - 150);
- 				   	box.y = 100;
+ 				   	box.y = 140;
  				   	box.z = Math.floor((Math.random() * 300) - 150);
  				    // start conditions veolcity
  				    box.dx = 0;
@@ -162,6 +167,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					glitter[i].z = glitter[i].z  + glitter[i].dz;
 
 					check_floor(glitter[i]);
+<<<<<<< HEAD
 
 					//if(sphere.visible) {
 							check_sphere(glitter[i], i);
@@ -169,6 +175,10 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 					add_wind(glitter[i]);
 				
+=======
+					check_sphere(glitter[i], i);
+					add_wind(glitter[i]);
+>>>>>>> 333af0da2870cc39676ec2760e18ef8193ac4caf
 					update +=0.0004;
 					if(glitter[i].y > -49){
 						glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
@@ -183,11 +193,10 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				}; 
 			}
 
-
 			function check_floor (box) {
-				if(box.y <= -50)
+				if(box.y <= -70)
 				{
-					box.y = -50
+					box.y = -70
 				 	box.dx = 0;
 				 	box.dz = 0;
 				}
@@ -226,9 +235,13 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			     		//sätter den nya poitions vektorn till samma längd som hastighets vektorn
 			     		posNew.setLength(l);
 			     		
-			     		box.dx = posNew.x*0.5;
-			     		box.dy = -posNew.y *0.5;
-			     		box.dz = posNew.z *0.5;
+			     		//glitter[i].obj.rotation.set(0, 0, 0); 
+
+			     		box.rotation = (Math.random())*0.5;
+
+			     		box.dx = posNew.x;
+			     		box.dy = posNew.y*9;
+			     		box.dz = posNew.z;
 
 			     		box.x += 1*pos.x;
 			     		box.y += 1*pos.y;
