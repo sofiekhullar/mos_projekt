@@ -8,7 +8,8 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			var radius = 10;
 			var container;
 			var camera, controls, scene, renderer;
-			var sky, sunSphere;
+			var sky, sunSphere, sphere;
+			//sphere.visible = true;
 			var distance = 400000;
 
 			init();
@@ -74,7 +75,11 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var geometry = new THREE.SphereGeometry( radius, 40, 40 );
 				var material = new THREE.MeshPhongMaterial( {color: 0x999999} );
 				var sphere = new THREE.Mesh( geometry, material );
+
 				//sphere.position.y = -20; 
+
+				//sphere.visible = false;
+
 				scene.add( sphere );
 
 				// Add controls
@@ -84,11 +89,45 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				controls.enablePan = false;
 				window.addEventListener( 'resize', onWindowResize, false );
 
+
+				/*
+
+				var texloader = new THREE.TextureLoader();
+				var tex=texloader.load("second.jpg");
+				var mat = new THREE.MeshBasicMaterial({ map: tex });
+
+				var loader = new THREE.TGALoader();
+
+				// add box 1 - grey8 texture
+				var texture1 = loader.load( 'textures/crate_grey8.tga' );
+				var material1 = new THREE.MeshPhongMaterial( { color: 0xffffff, map: texture1 } );
+
+				var geometry = new THREE.BoxGeometry( 50, 50, 50 );
+				var mesh1 = new THREE.Mesh( geometry, material1 );
+				mesh1.rotation.x = -Math.PI / 2;
+				mesh1.position.x = - 50;
+
+				scene.add( mesh1 );
+
+				*/
 				// Create boxes and push into a array
+
+				var loader = new THREE.TextureLoader();
+
+				//Add Texture
+				var tex = loader.load('texture/rosaglitter.jpg');
+				//var mat = new THREE.MeshPhongMaterial( { color: 0xffffff, map: tex } );
+				var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, map:tex, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
+
+
 				var geo = new THREE.BoxGeometry( 2, 0.2, 2 );
+
 				for (var i = 0; i < max_of_glitter; i++) {
  				    var box = {};
- 				    var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
+
+ 				   // var mat = new THREE.MeshPhongMaterial({color});
+ 				   // var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1, map:tex});
+
  				    box.obj = new THREE.Mesh( geo, mat);
  				   	// start conditions pos
  				   	box.x = Math.floor((Math.random() * 300) - 150);
@@ -128,6 +167,15 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					glitter[i].z = glitter[i].z  + glitter[i].dz;
 
 					check_floor(glitter[i]);
+
+
+					//if(sphere.visible) {
+							check_sphere(glitter[i], i);
+					//}
+
+					add_wind(glitter[i]);
+				
+
 					check_sphere(glitter[i], i);
 					add_wind(glitter[i]);
 					update +=0.0004;
