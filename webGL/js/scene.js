@@ -2,7 +2,7 @@
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			// Variabler
-			var max_of_glitter = 1000;
+			var max_of_glitter = 2000;
 			var glitter = [];
 			var time = 0;
 			var radius = 10;
@@ -84,7 +84,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				window.addEventListener( 'resize', onWindowResize, false );
 
 				// Create boxes and push into a array
-				var geo = new THREE.BoxGeometry( 5, 0.5, 5 );
+				var geo = new THREE.BoxGeometry( 2, 0.2, 2 );
 				for (var i = 0; i < max_of_glitter; i++) {
 					//TODO! ADD TEXTURE
  				    var color = Please.make_color({	// slumpar grå färger 
@@ -133,7 +133,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 					check_floor(glitter[i]);
 					check_sphere(glitter[i], i);
-					//add_wind(glitter[i]);
+					add_wind(glitter[i]);
 					update +=0.0004;
 					if(glitter[i].y > -49){
 						glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
@@ -192,7 +192,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			     		
 			     		//glitter[i].obj.rotation.set(0, 0, 0); 
 
-			     		box.rotation = Math.random();
+			     		box.rotation = (Math.random())*0.5;
 
 			     		box.dx = posNew.x;
 			     		box.dy = posNew.y*9;
