@@ -157,14 +157,26 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 
 					//if(sphere.visible) {
-							check_sphere(glitter[i], i);
+					check_sphere(glitter[i], i);
 					//}
 
-					add_wind(glitter[i]);
 				
-
-					check_sphere(glitter[i], i);
 					add_wind(glitter[i]);
+
+					/*if(!document.getElementById("wind"))
+					{
+							//document.getElementById("wind").onclick = function() {
+			   		 		//alert("hello");
+			   		 		window.location.reload()
+			   		 		add_wind(glitter[i]);
+			   		 		
+			   		 		} */
+
+					//}
+					
+
+					//check_sphere(glitter[i], i);
+					//add_wind(glitter[i]);
 					update +=0.0004;
 					if(glitter[i].y > -49){
 						glitter[i].dy =  glitter[i].dy - 9.82/2000; // add gravity
@@ -246,6 +258,15 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 		    	else
 		    		return false;
 		    }
+
+
+		 /*   function OnClickFun() {
+   		 	//document.getElementById("wind").style.color = "red";
+   		 	document.getElementById("wind").onclick = function() {
+   		 		alert("hello");
+   		 		window.location.reload()
+   		 	}
+			} */
 
 
 		    function onWindowResize() {
