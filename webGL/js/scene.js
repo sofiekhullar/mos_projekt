@@ -146,6 +146,14 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					check_sphere(glitter[i], i);
 					//add_wind(glitter[i]);
 
+					/*if(!document.getElementById("wind")) TODO JOHANNA
+					{
+							//document.getElementById("wind").onclick = function() {
+			   		 		//alert("hello");
+			   		 		window.location.reload()
+			   		 		add_wind(glitter[i]);
+			   		 		} */
+
 					update +=0.0004;
 					if(glitter[i].y > -49){
 						glitter[i].dy =  glitter[i].dy - 9.82/2000; // add gravity
@@ -161,9 +169,9 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			}
 
 			function check_floor (box) {
-				if(box.y <= -70)
+				if(box.y <= -200)
 				{
-					box.y = -70
+					box.y = -200;
 				 	box.dx = 0;
 				 	box.dz = 0;
 				}
@@ -225,6 +233,15 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 		    	else
 		    		return false;
 		    }
+
+
+		 /*   function OnClickFun() { TODO JOHANNA
+   		 	//document.getElementById("wind").style.color = "red";
+   		 	document.getElementById("wind").onclick = function() {
+   		 		alert("hello");
+   		 		window.location.reload()
+   		 	}
+			} */
 
 
 		    function onWindowResize() {
