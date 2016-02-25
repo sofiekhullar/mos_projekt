@@ -77,12 +77,12 @@
 			//Create boxes and store in array
  			var geo = new THREE.BoxGeometry( 5, 0.5, 5 );
  			   for (var i = 0; i < max_of_glitter; i++) {
- 				    var color = Please.make_color({	// slumpar grå färger
+ 				   /* var color = Please.make_color({	// slumpar grå färger
 							greyscale: true, //for the brits
 							grayscale: true  //for the yanks
-							});
+							});*/
  				    var box = {};
- 				    var mat = new THREE.MeshPhongMaterial({color});
+ 				    var mat = new THREE.MeshPhongMaterial({color: 0xFF99CC, specular: 0xFF99CC, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
  				    box.obj = new THREE.Mesh( geo, mat);
  				    
  				    box.x = Math.floor((Math.random() * 98) - 49);

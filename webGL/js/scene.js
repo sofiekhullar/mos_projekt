@@ -59,8 +59,8 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			initSky();
 
 				//add light
-	 			var light = new THREE.SpotLight(0xFFFFFF, 1, 200); //Vitt ljus och intensitet (jättestarkt!).
-	 			light.position.set( 0, 100, 0 );
+	 			var light = new THREE.SpotLight(0xFFFFFF, 1, 1000); //Vitt ljus och intensitet (jättestarkt!).
+	 			light.position.copy(camera.position);
 	 			scene.add(light);
 	 			light.castShadow = true;
 	 			light.shadowDarkness = 0.7;
@@ -72,7 +72,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 				//Add sphere
 				var geometry = new THREE.SphereGeometry( radius, 40, 40 );
-				var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+				var material = new THREE.MeshPhongMaterial( {color: 0x999999} );
 				var sphere = new THREE.Mesh( geometry, material );
 				scene.add( sphere );
 
@@ -87,12 +87,12 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var geo = new THREE.BoxGeometry( 2, 0.2, 2 );
 				for (var i = 0; i < max_of_glitter; i++) {
 					//TODO! ADD TEXTURE
- 				    var color = Please.make_color({	// slumpar grå färger 
+ 				    /*var color = Please.make_color({	// slumpar grå färger 
 							greyscale: true, //for the brits
 							grayscale: true  //for the yanks
-						});
+						});*/
  				    var box = {};
- 				    var mat = new THREE.MeshPhongMaterial({color});
+ 				    var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
  				    box.obj = new THREE.Mesh( geo, mat);
  				   	// start conditions pos
  				   	box.x = Math.floor((Math.random() * 300) - 150);
