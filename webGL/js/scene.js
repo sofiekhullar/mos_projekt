@@ -183,9 +183,9 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			}
 
 			function check_floor (box) {
-				if(box.y <= -70)
+				if(box.y <= -200)
 				{
-					box.y = -70
+					box.y = -200;
 				 	box.dx = 0;
 				 	box.dz = 0;
 				}
