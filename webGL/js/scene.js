@@ -111,7 +111,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var loader = new THREE.TextureLoader();
 
 				//Add Texture
-				var tex = loader.load('texture/rosaglitter.jpg');
+				var tex = loader.load('texture/goldglitter2.jpg');
 				//var mat = new THREE.MeshPhongMaterial( { color: 0xffffff, map: tex } );
 				var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, map:tex, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
 
