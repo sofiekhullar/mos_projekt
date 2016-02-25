@@ -67,7 +67,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 	 			renderer.render( scene, camera );
 
 				//Ambient ljus
-				var lightamb = new THREE.AmbientLight( 0xFFFFFF, 2, 200 ); // soft white light
+				var lightamb = new THREE.AmbientLight( 0xFFFFFF, 2, 1000 ); // soft white light
 				scene.add( lightamb ); 
 
 				//Add sphere
@@ -92,7 +92,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 							grayscale: true  //for the yanks
 						});*/
  				    var box = {};
- 				    var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
+ 				    var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 2});
  				    box.obj = new THREE.Mesh( geo, mat);
  				   	// start conditions pos
  				   	box.x = Math.floor((Math.random() * 300) - 150);
@@ -136,7 +136,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					add_wind(glitter[i]);
 					update +=0.0004;
 					if(glitter[i].y > -49){
-						glitter[i].dy =  glitter[i].dy - 9.82/1000; // add gravity
+						glitter[i].dy =  glitter[i].dy - 9.82/2000; // add gravity
 						glitter[i].obj.rotation.set(glitter[i].rotation * update, 1, 1); // Set initial rotation
 						glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation); // Apply rotation to the object's matrix
 					}
