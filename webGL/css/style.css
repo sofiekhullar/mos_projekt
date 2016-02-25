@@ -1,34 +1,29 @@
-body {
-				color: #ffffff;
-				font-family:Monospace;
-				font-size:20px;
-				text-align:center;
-				font-weight: bold;
 
-				background-color: #fff;
+			body {
+				font-family: Monospace;
+				background-color: #ffffff;
+				font-size: 40px;
+				color: #ffffff;
 				margin: 0px;
 				overflow: hidden;
-				text
 			}
 
 			#info {
-				color:#ccc;
-				text-shadow: 1px 1px rgba(0,0,0,0.25);
 				position: absolute;
-				top: 0px; width: 100%;
-				padding: 5px;
+				padding: 10px;
+				width: 100%;
 				text-align: top-center;
-
 			}
 
 			a {
+
 				color: #fff;
 				text-decoration: underline;
 				cursor: pointer;
 			}
 
-			
 			#stats { position: absolute; top:0; left: 0 }
 			#stats #fps { background: transparent !important }
 			#stats #fps #fpsText { color: #aaa !important }
 			#stats #fps #fpsGraph { display: none }
+	
