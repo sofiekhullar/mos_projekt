@@ -125,7 +125,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				for (var i = 0; i < max_of_glitter; i++) {
  				    var box = {};
 
- 				    var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 2});
+ 				    //var mat = new THREE.MeshPhongMaterial({color: 0xFF9999, specular: 0xFF9999, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 2});
 
 
  				   // var mat = new THREE.MeshPhongMaterial({color});
