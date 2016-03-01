@@ -2,7 +2,7 @@
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			// Variabler
-			var max_of_glitter = 2500;
+			var max_of_glitter = 5000;
 			var glitter = [];
 			var time = 0;
 			var radius = 10;
@@ -85,20 +85,31 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var mat = new THREE.MeshPhongMaterial({color: 0xFFFF00, map:tex, specular: 0xFFFF00, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
 				var geo = new THREE.BoxGeometry( 1.25, 0.1, 1.25);
 
-				// Add fan
-				var geometry = new THREE.BoxGeometry( 5,5,5 );
-				var material = new THREE.MeshBasicMaterial( {color: 0xFFFF00} );
-				var cube = new THREE.Mesh( geometry, material );
-				cube.position.y = 20;
-				cube.position.x = -100;
-				scene.add( cube );
 				
-	/*			var loader = new THREE.Objectloader();
-				  loader.load( 'fan.obj', function ( object ) {
-				    console.log(object);
-				    scene.add( object );
-				  } );
-*/
+				//Load the fan.json
+				var loader = new THREE.JSONLoader(); // init the loader util
+				// init loading
+				loader.load('mesh/fan.js', function (geometry) {
+				  // create a new material
+				  var material = new THREE.MeshLambertMaterial({
+				    map: THREE.ImageUtils.loadTexture('mesh/galax.png'),  // specify and load the texture
+				    colorAmbient: [0.480000026226044, 0.480000026226044, 0.480000026226044],
+				    colorDiffuse: [0.480000026226044, 0.480000026226044, 0.480000026226044],
+				    colorSpecular: [0.8999999761581421, 0.8999999761581421, 0.8999999761581421]
+				  });
+				  
+				  // create a mesh with models geometry and material
+				  var mesh = new THREE.Mesh(
+				    geometry,
+				    material
+				  );
+
+				  mesh.scale.set(20,20,20);
+				  mesh.rotation.y = Math.PI/2;
+				  mesh.position.y = 10;
+				  mesh.position.x = -130;
+				  scene.add(mesh);
+				});
 
 				// Create boxes and push into a array
 				for (var i = 0; i < max_of_glitter; i++) {
@@ -124,6 +135,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
  				    glitter.push(box);
  				};
  			}
+ 			
 
 			// update per frame
 			function update_scene () {

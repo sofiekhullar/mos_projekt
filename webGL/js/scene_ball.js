@@ -2,7 +2,7 @@
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			// Variabler
-			var max_of_glitter = 2500;
+			var max_of_glitter = 5000;
 			var glitter = [];
 			var time = 0;
 			var radius = 10;
