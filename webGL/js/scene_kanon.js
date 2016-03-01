@@ -105,9 +105,9 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				  mesh.scale.set(1,1,1);
  				  mesh.rotation.x = -Math.PI/2;
  				  mesh.rotation.y = Math.PI/4;
-				  mesh.position.y = -60;
-				  mesh.position.x = -120;
-				  mesh.position.z = 0;
+				  mesh.position.y = -40;
+				  mesh.position.x = -90;
+				  mesh.position.z = 10;
 				  scene.add(mesh);
 				});
 
@@ -122,7 +122,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
  				   	box.z = 0;
 
  				    // start conditions veolcity
- 					box.dx = ((Math.random() *10) +1)*0.1;
+ 					box.dx = ((Math.random() *4) +1)*0.1;
 			        box.dy = ((Math.random() * 7) + 5)*0.1;
 			        box.dz = Math.random()*0.5;
 

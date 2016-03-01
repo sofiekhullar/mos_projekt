@@ -210,15 +210,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 		    }
 
 
-		 /*   function OnClickFun() { TODO JOHANNA
-   		 	//document.getElementById("wind").style.color = "red";
-   		 	document.getElementById("wind").onclick = function() {
-   		 		alert("hello");
-   		 		window.location.reload()
-   		 	}
-			} */
-
-
 		    function onWindowResize() {
 		    	camera.aspect = window.innerWidth / window.innerHeight;
 		    	camera.updateProjectionMatrix();
