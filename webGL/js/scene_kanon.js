@@ -2,7 +2,7 @@
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			// Variabler
-			var max_of_glitter = 2500;
+			var max_of_glitter = 1000;
 			var glitter = [];
 			var time = 0;
 			var radius = 10;
@@ -49,7 +49,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			function init() {
 			// Add scene
-			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 100, 2000000 );
+			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 10, 2000000 );
 			camera.position.set( 0, 0, 130);
 			scene = new THREE.Scene();
 			renderer = new THREE.WebGLRenderer();
@@ -92,10 +92,10 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
  				   	// start conditions pos
  				   	box.x = -100;
  				   	box.y = -50;
- 				   	box.z = Math.floor((Math.random() * 250) - 150);
+ 				   	box.z = Math.random();
 
  				    // start conditions veolcity
- 					box.dx = Math.random();
+ 					box.dx = ((Math.random() *10) +1)*0.1;
 			        box.dy = ((Math.random() * 7) + 5)*0.1;
 			        box.dz = Math.random()*0.5;
 

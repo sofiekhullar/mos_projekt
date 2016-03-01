@@ -2,7 +2,7 @@
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			// Variabler
-			var max_of_glitter = 2500;
+			var max_of_glitter = 5000;
 			var glitter = [];
 			var time = 0;
 			var radius = 10;
@@ -49,7 +49,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			function init() {
 			// Add scene
-			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 100, 2000000 );
+			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 10, 2000000 );
 			camera.position.set( 0, 0, 130);
 			scene = new THREE.Scene();
 			renderer = new THREE.WebGLRenderer();

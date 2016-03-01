@@ -2,7 +2,7 @@
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			// Variabler
-			var max_of_glitter = 2500;
+			var max_of_glitter = 5000;
 			var glitter = [];
 			var time = 0;
 			var radius = 10;
@@ -49,7 +49,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			function init() {
 			// Add scene
-			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 100, 2000000 );
+			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 10, 2000000 );
 			camera.position.set( 0, 0, 130);
 			scene = new THREE.Scene();
 			renderer = new THREE.WebGLRenderer();
@@ -86,8 +86,8 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var geo = new THREE.BoxGeometry( 1.25, 0.1, 1.25);
 
 				
+				//Load the fan.json
 				var loader = new THREE.JSONLoader(); // init the loader util
-
 				// init loading
 				loader.load('mesh/fan.js', function (geometry) {
 				  // create a new material
@@ -111,8 +111,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				  mesh.position.y = 15;
 				  mesh.position.x = -150;
 				 // mesh.position.z = 50;
-
-				  
 				  scene.add(mesh);
 				});
 
