@@ -71,6 +71,21 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var lightamb = new THREE.AmbientLight( 0xFFFFFF, 2, 1000 ); // soft white light
 				scene.add( lightamb ); 
 
+				//Add sphere
+
+				//Bilder att välja mellan: world.jpg, black.jpg, sofie.jpg
+				var texture = THREE.ImageUtils.loadTexture('texture/green_2.jpg');
+				var material = new THREE.MeshPhongMaterial({
+				    ambient: 0x404040,
+				    map: texture,
+				    specular: 0x000000,
+				    shininess: 30,
+				    shading: THREE.SmoothShading,
+				});
+				var geometry = new THREE.SphereBufferGeometry( radius, 40, 40);
+				var mesh = new THREE.Mesh(geometry, material);
+				scene.add(mesh);
+				scene.add( sphere );
 
 				// Add controls
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
@@ -128,6 +143,16 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					glitter[i].z = glitter[i].z  + glitter[i].dz;
 
 					check_floor(glitter[i]);
+					check_sphere(glitter[i], i);
+					//add_wind(glitter[i]);
+
+					/*if(!document.getElementById("wind")) TODO JOHANNA
+					{
+							//document.getElementById("wind").onclick = function() {
+			   		 		//alert("hello");
+			   		 		window.location.reload()
+			   		 		add_wind(glitter[i]);
+			   		 		} */
 
 					update +=0.0004;
 					if(glitter[i].y > -49){

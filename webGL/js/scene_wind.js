@@ -85,6 +85,21 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var mat = new THREE.MeshPhongMaterial({color: 0xFFFF00, map:tex, specular: 0xFFFF00, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
 				var geo = new THREE.BoxGeometry( 1.25, 0.1, 1.25);
 
+				// Add fan
+				var geometry = new THREE.BoxGeometry( 5,5,5 );
+				var material = new THREE.MeshBasicMaterial( {color: 0xFFFF00} );
+				var cube = new THREE.Mesh( geometry, material );
+				cube.position.y = 20;
+				cube.position.x = -100;
+				scene.add( cube );
+				
+	/*			var loader = new THREE.Objectloader();
+				  loader.load( 'fan.obj', function ( object ) {
+				    console.log(object);
+				    scene.add( object );
+				  } );
+*/
+
 				// Create boxes and push into a array
 				for (var i = 0; i < max_of_glitter; i++) {
  				    var box = {};
@@ -128,6 +143,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					glitter[i].z = glitter[i].z  + glitter[i].dz;
 
 					check_floor(glitter[i]);
+					add_wind(glitter[i]);
 
 					update +=0.0004;
 					if(glitter[i].y > -49){
@@ -154,7 +170,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				function add_wind (box) {
 				if(box.y >20 && box.y <40)
 				{
-					box.dx = 0.5;
+					box.dx = 2;
 				}
 			}
 
@@ -209,14 +225,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 		    		return false;
 		    }
 
-
-		 /*   function OnClickFun() { TODO JOHANNA
-   		 	//document.getElementById("wind").style.color = "red";
-   		 	document.getElementById("wind").onclick = function() {
-   		 		alert("hello");
-   		 		window.location.reload()
-   		 	}
-			} */
 
 
 		    function onWindowResize() {

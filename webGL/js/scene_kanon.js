@@ -71,7 +71,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var lightamb = new THREE.AmbientLight( 0xFFFFFF, 2, 1000 ); // soft white light
 				scene.add( lightamb ); 
 
-
 				// Add controls
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
 				controls.addEventListener( 'change', render );
@@ -91,13 +90,14 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
  				    box.obj = new THREE.Mesh( geo, mat);
  				   	// start conditions pos
- 				   	box.x = Math.floor((Math.random() * 300) - 150);
- 				   	box.y = 140;
- 				   	box.z = Math.floor((Math.random() * 300) - 150);
+ 				   	box.x = -100;
+ 				   	box.y = -50;
+ 				   	box.z = Math.floor((Math.random() * 250) - 150);
+
  				    // start conditions veolcity
- 				    box.dx = 0;
- 				    box.dy = Math.random();
- 				    box.dz = 0;
+ 					box.dx = Math.random();
+			        box.dy = ((Math.random() * 7) + 5)*0.1;
+			        box.dz = Math.random()*0.5;
 
  				    box.rotation = Math.random();
 
@@ -209,14 +209,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 		    		return false;
 		    }
 
-
-		 /*   function OnClickFun() { TODO JOHANNA
-   		 	//document.getElementById("wind").style.color = "red";
-   		 	document.getElementById("wind").onclick = function() {
-   		 		alert("hello");
-   		 		window.location.reload()
-   		 	}
-			} */
 
 
 		    function onWindowResize() {
