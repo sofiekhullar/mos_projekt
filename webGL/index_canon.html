@@ -10,15 +10,18 @@
 </head>
 <body>
 	<div id="info"> 
-			<a href="index_wind.html" id="wind">Wind</a> |
-			<a href="index_ball.html" id="ball">Ball</a> |
-			<a href="index_canon.html" id="canon">Canon</a> |
-			<a href="index.html" id="back">Back</a> <br> <br>
-			
+		<a href="index_wind.html" id="wind">Wind</a> |
+		<a href="index_ball.html" id="ball">Ball</a> |
+		<a href="index_canon.html" id="canon">Canon</a> |
+		<a href="index.html" id="back">Back</a> <br> <br>	
 	</div>
 	
 	<div id="reload"> 
-	<a href="index_canon.html" id="canon"><i class="fa fa-refresh fa-2x"></i></a>
+		<a href="index_canon.html" id="canon"><i class="fa fa-refresh fa-2x"></i></a>
+	</div>
+	
+	<div id="info_button"> 
+		<i class="fa fa-info-circle fa-2x"></i>
 	</div>
 
 	<script src="js/three.js"></script>
@@ -34,6 +37,11 @@
 	<script src="js/ImageLoader.js"></script>
 	<script src="js/ObjectLoader.js"></script>
 	<script src="js/scene_kanon.js"></script>
+
+	<script type="text/javascript">
+		var audio = new Audio('sound/boom.mp3');
+		audio.play();
+	</script>
 
 </body>
 
