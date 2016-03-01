@@ -49,7 +49,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			function init() {
 			// Add scene
-			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 100, 2000000 );
+			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 10, 2000000 );
 			camera.position.set( 0, 0, 130);
 			scene = new THREE.Scene();
 			renderer = new THREE.WebGLRenderer();
