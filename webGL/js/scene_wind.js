@@ -108,6 +108,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				  mesh.rotation.y = Math.PI/2;
 				  mesh.position.y = 10;
 				  mesh.position.x = -130;
+				  
 				  scene.add(mesh);
 				});
 
