@@ -102,6 +102,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				    material
 				  );
 
+
 				  mesh.scale.set(60,60,60);
 				  //mesh.rotation.y = Math.PI/2;
 				 // mesh.rotation.x = Math.PI/2;
@@ -109,6 +110,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				  mesh.position.y = -70;
 				  mesh.position.x = -150;
 				  //mesh.position.z = 30;
+
 				  scene.add(mesh);
 				});
 
@@ -120,7 +122,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
  				   	// start conditions pos
  				   	box.x = -100;
  				   	box.y = -50;
- 				   	box.z = Math.random();
+ 				   	box.z = 0;
 
  				    // start conditions veolcity
  					box.dx = ((Math.random() *10) +1)*0.1;
