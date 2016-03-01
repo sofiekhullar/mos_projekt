@@ -49,8 +49,8 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			function init() {
 			// Add scene
-			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 100, 2000000 );
-			camera.position.set( 0, 0, 130);
+			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 10, 2000000 );
+			camera.position.set( 0, 0, 300);
 			scene = new THREE.Scene();
 			renderer = new THREE.WebGLRenderer();
 			renderer.setPixelRatio( window.devicePixelRatio );
@@ -83,6 +83,33 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var tex = loader.load('texture/goldglitter2.jpg');
 				var mat = new THREE.MeshPhongMaterial({color: 0xFFFF00, map:tex, specular: 0xFFFF00, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
 				var geo = new THREE.BoxGeometry( 1.25, 0.1, 1.25);
+
+				//Load the corona.json
+				var loader = new THREE.JSONLoader(); // init the loader util
+				// init loading
+				loader.load('mesh/corona.js', function (geometry) {
+				  // create a new material
+				  var material = new THREE.MeshLambertMaterial({
+				    map: THREE.ImageUtils.loadTexture('mesh/BotellaText.jpg'),  // specify and load the texture
+				    colorAmbient: [0.480000026226044, 0.480000026226044, 0.480000026226044],
+				    colorDiffuse: [0.480000026226044, 0.480000026226044, 0.480000026226044],
+				    colorSpecular: [0.8999999761581421, 0.8999999761581421, 0.8999999761581421]
+				  });
+				  
+				  // create a mesh with models geometry and material
+				  var mesh = new THREE.Mesh(
+				    geometry,
+				    material
+				  );
+
+				  mesh.scale.set(1.5,1.5,1.5);
+				  mesh.rotation.y = Math.PI/2;
+ 				  mesh.rotation.x = Math.PI;
+				  mesh.position.y = -40;
+				  mesh.position.x = -150;
+				  mesh.position.z = 30;
+				  scene.add(mesh);
+				});
 
 				// Create boxes and push into a array
 				for (var i = 0; i < max_of_glitter; i++) {

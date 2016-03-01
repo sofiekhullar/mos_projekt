@@ -49,7 +49,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			function init() {
 			// Add scene
-			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 100, 2000000 );
+			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 10, 2000000 );
 			camera.position.set( 0, 0, 130);
 			scene = new THREE.Scene();
 			renderer = new THREE.WebGLRenderer();
@@ -91,8 +91,10 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				// init loading
 				loader.load('mesh/fan.js', function (geometry) {
 				  // create a new material
+
+
 				  var material = new THREE.MeshLambertMaterial({
-				    map: THREE.ImageUtils.loadTexture('mesh/galax.png'),  // specify and load the texture
+				    map: THREE.ImageUtils.loadTexture('mesh/Fan_D.png'),  // specify and load the texture
 				    colorAmbient: [0.480000026226044, 0.480000026226044, 0.480000026226044],
 				    colorDiffuse: [0.480000026226044, 0.480000026226044, 0.480000026226044],
 				    colorSpecular: [0.8999999761581421, 0.8999999761581421, 0.8999999761581421]
@@ -104,11 +106,13 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				    material
 				  );
 
-				  mesh.scale.set(20,20,20);
+				  mesh.scale.set(40,40,40);
 				  mesh.rotation.y = Math.PI/2;
-				  mesh.position.y = 10;
-				  mesh.position.x = -130;
-				  
+	  
+				  mesh.position.y = 15;
+				  mesh.position.x = -150;
+				 // mesh.position.z = 50;
+
 				  scene.add(mesh);
 				});
 
