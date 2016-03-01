@@ -75,8 +75,8 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				// Add controls
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
 				controls.addEventListener( 'change', render );
-				controls.enableZoom = false;
-				controls.enablePan = false;
+				controls.enableZoom = true;
+				controls.enablePan = true;
 				window.addEventListener( 'resize', onWindowResize, false );	
 
 				//Add Texture
