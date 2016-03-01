@@ -50,7 +50,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			function init() {
 			// Add scene
 			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 10, 2000000 );
-			camera.position.set( 0, 0, 130);
+			camera.position.set( 0, 0, 200);
 			scene = new THREE.Scene();
 			renderer = new THREE.WebGLRenderer();
 			renderer.setPixelRatio( window.devicePixelRatio );
@@ -91,7 +91,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				// init loading
 				loader.load('mesh/fan.js', function (geometry) {
 				  // create a new material
-
 
 				  var material = new THREE.MeshLambertMaterial({
 				    map: THREE.ImageUtils.loadTexture('mesh/Fan_D.png'),  // specify and load the texture
