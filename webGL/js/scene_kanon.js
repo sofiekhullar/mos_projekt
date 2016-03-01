@@ -87,10 +87,10 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				//Load the corona.json
 				var loader = new THREE.JSONLoader(); // init the loader util
 				// init loading
-				loader.load('mesh/corona.js', function (geometry) {
+				loader.load('mesh/Flintlock_pistol.js', function (geometry) {
 				  // create a new material
 				  var material = new THREE.MeshLambertMaterial({
-				    map: THREE.ImageUtils.loadTexture('mesh/BotellaText.jpg'),  // specify and load the texture
+				    map: THREE.ImageUtils.loadTexture('mesh/Flintlock_pistol_D.png'),  // specify and load the texture
 				    colorAmbient: [0.480000026226044, 0.480000026226044, 0.480000026226044],
 				    colorDiffuse: [0.480000026226044, 0.480000026226044, 0.480000026226044],
 				    colorSpecular: [0.8999999761581421, 0.8999999761581421, 0.8999999761581421]
@@ -102,12 +102,13 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				    material
 				  );
 
-				  mesh.scale.set(1.5,1.5,1.5);
-				  mesh.rotation.y = Math.PI/2;
- 				  mesh.rotation.x = Math.PI;
-				  mesh.position.y = -40;
+				  mesh.scale.set(60,60,60);
+				  //mesh.rotation.y = Math.PI/2;
+				 // mesh.rotation.x = Math.PI/2;
+ 				  //mesh.rotation.z = Math.PI/4;
+				  mesh.position.y = -70;
 				  mesh.position.x = -150;
-				  mesh.position.z = 30;
+				  //mesh.position.z = 30;
 				  scene.add(mesh);
 				});
 
