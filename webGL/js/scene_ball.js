@@ -31,7 +31,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 				// add sun to scene
 				sunSphere.position.y = - 700000;
-				sunSphere.visible = false;
 				scene.add( sunSphere );
 
 				// change sunlight
@@ -48,7 +47,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				sunSphere.position.x = distance * Math.cos( phi );
 				sunSphere.position.y = distance * Math.sin( phi ) * Math.sin( theta );
 				sunSphere.position.z = distance * Math.sin( phi ) * Math.cos( theta );
-				sunSphere.visible = ! true;
+				sunSphere.visible = false;
 
 				sky.uniforms.sunPosition.value.copy( sunSphere.position );
 			}
