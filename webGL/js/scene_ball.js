@@ -1,7 +1,7 @@
 
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-			// Variabler
+			// Variables
 			var max_of_glitter = 2500;
 			var glitter = [];
 			var time = 0;
@@ -41,9 +41,10 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				uniforms.luminance.value = 1;
 				uniforms.mieCoefficient.value = 0.005;
 				uniforms.mieDirectionalG.value = 0.8;
-				var theta = Math.PI * ( 0.49 - 0.5 );
-				var phi = 2 * Math.PI * ( 0.25 - 0.5 );
+				var theta = Math.PI * ( - 0.1 );
+				var phi = 2 * Math.PI * ( - 0.25 );
 
+				//Set position for sun sphere
 				sunSphere.position.x = distance * Math.cos( phi );
 				sunSphere.position.y = distance * Math.sin( phi ) * Math.sin( theta );
 				sunSphere.position.z = distance * Math.sin( phi ) * Math.cos( theta );
