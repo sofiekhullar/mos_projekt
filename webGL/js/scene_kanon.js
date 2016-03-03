@@ -1,8 +1,7 @@
-
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			// Variabler
-			var max_of_glitter = 1000;
+			var max_of_glitter = 2500;
 			var glitter = [];
 			var time = 0;
 			var radius = 10;
@@ -49,8 +48,8 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			function init() {
 			// Add scene
-			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 10, 2000000 );
-			camera.position.set( 0, 0, 300);
+			camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 100, 2000000 );
+			camera.position.set( 0, 0, 130);
 			scene = new THREE.Scene();
 			renderer = new THREE.WebGLRenderer();
 			renderer.setPixelRatio( window.devicePixelRatio );
@@ -74,8 +73,8 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				// Add controls
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
 				controls.addEventListener( 'change', render );
-				controls.enableZoom = true;
-				controls.enablePan = true;
+				controls.enableZoom = false;
+				controls.enablePan = false;
 				window.addEventListener( 'resize', onWindowResize, false );	
 
 				//Add Texture
@@ -83,45 +82,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 				var tex = loader.load('texture/goldglitter2.jpg');
 				var mat = new THREE.MeshPhongMaterial({color: 0xFFFF00, map:tex, specular: 0xFFFF00, shininess: 30, shading: THREE.FlatShading, emissiveIntensity: 1});
 				var geo = new THREE.BoxGeometry( 1.25, 0.1, 1.25);
-
-				//Load the corona.json
-				var loader = new THREE.JSONLoader(); // init the loader util
-				// init loading
-				loader.load('mesh/Flintlock_pistol.js', function (geometry) {
-				  // create a new material
-				  var material = new THREE.MeshLambertMaterial({
-				    map: THREE.ImageUtils.loadTexture('mesh/Flintlock_pistol_D.png'),  // specify and load the texture
-				    colorAmbient: [0.480000026226044, 0.480000026226044, 0.480000026226044],
-				    colorDiffuse: [0.480000026226044, 0.480000026226044, 0.480000026226044],
-				    colorSpecular: [0.8999999761581421, 0.8999999761581421, 0.8999999761581421]
-				  });
-				  
-				  // create a mesh with models geometry and material
-				  var mesh = new THREE.Mesh(
-				    geometry,
-				    material
-				  );
-
-/*
-				  mesh.scale.set(1,1,1);
- 				  mesh.rotation.x = -Math.PI/2;
- 				  mesh.rotation.y = Math.PI/4;
-				  mesh.position.y = -40;
-				  mesh.position.x = -90;
-				  mesh.position.z = 10;
-
-*/
-				  mesh.scale.set(60,60,60);
-				  //mesh.rotation.y = Math.PI/2;
-				 // mesh.rotation.x = Math.PI/2;
- 				  //mesh.rotation.z = Math.PI/4;
-				  mesh.position.y = -70;
-				  mesh.position.x = -150;
-				  //mesh.position.z = 30;
-
-
-				  scene.add(mesh);
-				});
 
 				// Create boxes and push into a array
 				for (var i = 0; i < max_of_glitter; i++) {
@@ -131,10 +91,10 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
  				   	// start conditions pos
  				   	box.x = -100;
  				   	box.y = -50;
- 				   	box.z = 0;
+ 				   	box.z = Math.floor((Math.random() * 250) - 150);
 
  				    // start conditions veolcity
- 					box.dx = ((Math.random() *4) +1)*0.1;
+ 					box.dx = Math.random();
 			        box.dy = ((Math.random() * 7) + 5)*0.1;
 			        box.dz = Math.random()*0.5;
 
