@@ -164,6 +164,8 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 					// Call the checkfloor
 					check_floor(glitter[i]);
+					// Call the add_wind 
+					add_wind(glitter[i]);
 
 					update +=0.0004;
 
