@@ -52,3 +52,33 @@ while (t<60)
      t = t+deltat;
      
 end
+
+
+
+%%
+%% Räkna fram vinklar
+
+%Slumpar fram en vinkel alpha mellan 0 och 90 grader
+alpha=0+(pi/2)*rand(1,1);
+
+%x är fallytan. https://sv.wikipedia.org/wiki/Trigonometri#.C3.96versikt
+x=A*cos(alpha);
+
+%Går att ersätta med arean x om man vill. 
+
+%Case 1 Faller med vinkeln mellan 0-45 grader
+if(cos(0)<alpha && alpha<cos(pi/4))
+       
+end
+
+%Case 2 Faller med vinkeln mellan 45-90 grader
+if(cos(pi/4)<alpha && alpha<cos(pi/2))
+     
+end
+
+%Case 3 Faller med en vinkel större än 90 grader
+if(alpha>cos(pi/2))
+      
+end
+
+

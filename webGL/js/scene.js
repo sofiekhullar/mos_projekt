@@ -11,7 +11,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			var distance = 400000;
 			var update = 0;
 			var floor_pos = -200;
-			var gravity = 9.81;
+			var gravity = 9.81/2000;
 			
 			// Function calls
 			init();
@@ -140,7 +140,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 					update +=0.0004;
 
 					if(glitter[i].y > floor_pos){
-						glitter[i].dy =  glitter[i].dy - gravity/2000; // add gravity
+						glitter[i].dy =  glitter[i].dy - gravity; // add gravity
 						glitter[i].obj.rotation.set(glitter[i].rotation * update, 1, 1); // Set initial rotation
 						glitter[i].obj.matrix.makeRotationFromEuler(glitter[i].obj.rotation); // Apply rotation to the object's matrix
 					}
