@@ -12,7 +12,7 @@ V = zeros(1,N); % Speed
 V(1)=V0; % initial speed
 deltat=0.002;
 
-pos(1) = 150; % Start height m
+pos(1) = 102; % Start height m
 
 t=(0:N-1)*deltat; %Tiden
 Arand = Amin+Amax*rand(1,1) % Random nr mellan max och min
@@ -22,7 +22,7 @@ if( Arand < Amax && Arand > Amax/2) %Horrisontellt
 else   %Vertikalt
     Arand = Amin;
 end
-Arand = Amax;
+Arand = Amin;
 
 k = 0.5*cw*rho*Arand; % Coefficient
    
@@ -33,33 +33,6 @@ end
 
 
 plot(t,pos);
-xlabel('time in sec');
-ylabel('Position in m');
+xlabel('time (s)');
+ylabel('Position (m)');
 legend ('Euler Method','location','south');
-
-
-%% Räkna fram vinklar
-
-%Slumpar fram en vinkel alpha mellan 0 och 90 grader
-alpha=0+(pi/2)*rand(1,1);
-
-%x är fallytan. https://sv.wikipedia.org/wiki/Trigonometri#.C3.96versikt
-x=A*cos(alpha);
-
-%Går att ersätta med arean x om man vill. 
-
-%Case 1 Faller med vinkeln mellan 0-45 grader
-if(cos(0)<alpha && alpha<cos(pi/4))
-       
-end
-
-%Case 2 Faller med vinkeln mellan 45-90 grader
-if(cos(pi/4)<alpha && alpha<cos(pi/2))
-     
-end
-
-%Case 3 Faller med en vinkel större än 90 grader
-if(alpha>cos(pi/2))
-      
-end
-

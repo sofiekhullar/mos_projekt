@@ -117,6 +117,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
  				    var box = {};
 
  				    box.obj = new THREE.Mesh( geo, mat);
+ 				    
  				   	// start conditions pos
  				   	box.x = Math.floor((Math.random() * 300) - 150);
  				   	box.y = 140;
@@ -195,7 +196,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
  			     		// Velocity vector
  			     		var v = new THREE.Vector3( box.dx, box.dy, box.dz );
  			     		// Position vector
- 			     		var pos = new THREE.Vector3( box.x, box.y, box.z);
+ 			     		var posNew = new THREE.Vector3( box.x, box.y, box.z);
 
  			     		// Length of velocity vector
  			     		var l = v.length();
@@ -203,26 +204,26 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
  			     		// Normalize both vectors
  			     		v.normalize();
-			     		pos.normalize();
+			     		posNew.normalize();
 
 			     		//Project the velocity vector on the position vector
-			     		var projPos= v.projectOnVector(pos);
+			     		var projPos= v.projectOnVector(posNew);
 			  
 			     		// Create a new vector that is the position of the projected vector
-			     		var posNew = new THREE.Vector3(projPos.x, projPos.y, projPos.z);
+			     		var vNew = new THREE.Vector3(projPos.x, projPos.y, projPos.z);
 
 			     		// Sets the new vector to the same length as the velocity vector
 			     		posNew.setLength(l);
 			     		
 			     		box.rotation = Math.random();
 
-			     		box.dx = posNew.x*0.5;
-			     		box.dy = posNew.y*9;
-			     		box.dz = posNew.z *0.5;
+			     		box.dx = vNew.x*0.5;
+			     		box.dy = vNew.y*9;
+			     		box.dz = vNew.z *0.5;
 
-			     		box.x += pos.x;
-			     		box.y += pos.y;
-			     		box.z += pos.z;
+			     		box.x += posNew.x;
+			     		box.y += posNew.y;
+			     		box.z += posNew.z;
  			     	}
 			}
 

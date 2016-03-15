@@ -97,14 +97,14 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
  				    box.obj = new THREE.Mesh( geo, mat);
  				    	// start conditions pos
- 				   	box.x = -100;
+ 				   	box.x = 0;
  				   	box.y = -50;
- 				   	box.z = Math.floor((Math.random() * 250) - 150);
+ 				   	box.z = 0;
 
  				    // start conditions veolcity
  					box.dx = Math.random();
 			        box.dy = ((Math.random() * 7) + 5)*0.1;
-			        box.dz = Math.random()*0.5;
+			        box.dz = -Math.random()*0.5;
 
 
  				    // set the start rotation
