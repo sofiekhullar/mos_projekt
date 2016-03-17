@@ -55,7 +55,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			function init() {
 				// Init the  scenen
 				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 10, 2000000 );
-				camera.position.set( 0, 0, 130);
+				camera.position.set( 0, 20, 90);
 				scene = new THREE.Scene();
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -97,7 +97,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
  				    box.obj = new THREE.Mesh( geo, mat);
  				    	// start conditions pos
- 				   	box.x = 0;
+ 				   	box.x = -100;
  				   	box.y = -50;
  				   	box.z = 0;
 
@@ -105,7 +105,6 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
  					box.dx = Math.random();
 			        box.dy = ((Math.random() * 7) + 5)*0.1;
 			        box.dz = -Math.random()*0.5;
-
 
  				    // set the start rotation
  				    box.rotation = Math.random();
