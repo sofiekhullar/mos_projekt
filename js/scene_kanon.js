@@ -55,7 +55,7 @@ if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 			function init() {
 				// Init the  scenen
 				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 10, 2000000 );
-				camera.position.set( 0, 20, 90);
+				camera.position.set( 0, 0, 60);
 				scene = new THREE.Scene();
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
